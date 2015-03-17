@@ -1,0 +1,34 @@
+#include "implementation.oil"
+
+CPU ATMEL_AT91SAM7S256
+{
+  OS LEJOS_OSEK
+  {
+    STATUS = EXTENDED;
+    STARTUPHOOK = TRUE;
+    ERRORHOOK = FALSE;
+    SHUTDOWNHOOK = TRUE;
+    PRETASKHOOK = FALSE;
+    POSTTASKHOOK = FALSE;
+    USEGETSERVICEID = FALSE;
+    USEPARAMETERACCESS = FALSE;
+    USERESSCHEDULER = FALSE;
+  };
+
+  /* Definition of application mode */
+  APPMODE appmode1{}; 
+
+  /* Definition of OSEK_Task_Background */
+  TASK OSEK_Main_Task
+  {
+    AUTOSTART = TRUE
+    {
+    	APPMODE = appmode1;
+    };
+    PRIORITY = 1;
+    ACTIVATION = 1;
+    SCHEDULE = FULL;
+    STACKSIZE = 512;
+  };
+};
+
