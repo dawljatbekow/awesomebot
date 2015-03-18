@@ -110,6 +110,7 @@ data_abort_pc       0x4               /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecro
 nextpri             0x1               build/kernel/task.o
 isrcb_lastres       0x1               build/./kernel_cfg.o
 cntcb_almque        0x1               build/./kernel_cfg.o
+gegenstand          0x4               build/src/main.o
 rescb_prevres       0x1               build/./kernel_cfg.o
 tcb_actcnt          0x1               build/./kernel_cfg.o
 _errorhook_par3     0x4               build/kernel/osctl.o
@@ -332,8 +333,6 @@ Discarded input sections
  .text          0x00000000        0x0 build/src/main.o
  .data          0x00000000        0x0 build/src/main.o
  .bss           0x00000000        0x0 build/src/main.o
- .text.hello_world
-                0x00000000       0x10 build/src/main.o
  .text          0x00000000        0x0 build/syslib/at91sam7s-gnu/lego_nxt/hw_sys_timer.oram
  .data          0x00000000        0x0 build/syslib/at91sam7s-gnu/lego_nxt/hw_sys_timer.oram
  .bss           0x00000000        0x0 build/syslib/at91sam7s-gnu/lego_nxt/hw_sys_timer.oram
@@ -373,8 +372,6 @@ Discarded input sections
                 0x00000000       0x10 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
  .text.ecrobot_set_light_sensor_inactive
                 0x00000000       0x10 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
- .text.ecrobot_get_touch_sensor
-                0x00000000       0x20 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
  .text.ecrobot_get_sound_sensor
                 0x00000000       0x14 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
  .text.ecrobot_init_i2c
@@ -1272,7 +1269,7 @@ END GROUP
                 0x002059d0                __data_load_start__ = LOADADDR (.data)
                 0x00205a40                __data_load_end__ = (__data_load_start__ + SIZEOF (.data))
 
-.text           0x00205a40     0x1310
+.text           0x00205a40     0x1360
                 0x00205a40                . = ALIGN (0x10)
  *(*.text *.text.* *.glue*)
  .glue_7        0x00205a40       0x18 linker stubs
@@ -1362,133 +1359,138 @@ END GROUP
                 0x0020608c                anzeige
  .text.stop     0x00206118       0x1c build/src/main.o
                 0x00206118                stop
- .text.fahren   0x00206134       0x3c build/src/main.o
+ .text.fahren   0x00206134       0x2c build/src/main.o
                 0x00206134                fahren
- .text.lenken   0x00206170       0x48 build/src/main.o
-                0x00206170                lenken
+ .text.lenken   0x00206160       0x48 build/src/main.o
+                0x00206160                lenken
  .text.richtiglenken
-                0x002061b8       0x58 build/src/main.o
-                0x002061b8                richtiglenken
- .text.suchen   0x00206210       0x94 build/src/main.o
-                0x00206210                suchen
+                0x002061a8       0x58 build/src/main.o
+                0x002061a8                richtiglenken
+ .text.fahre_richtung
+                0x00206200       0x24 build/src/main.o
+                0x00206200                fahre_richtung
+ .text.suchen   0x00206224       0x74 build/src/main.o
+                0x00206224                suchen
  .text.orientierung
-                0x002062a4       0x1c build/src/main.o
-                0x002062a4                orientierung
- .text.folgen   0x002062c0       0xac build/src/main.o
-                0x002062c0                folgen
+                0x00206298       0x1c build/src/main.o
+                0x00206298                orientierung
+ .text.folgen   0x002062b4       0xfc build/src/main.o
+                0x002062b4                folgen
  .text.TaskMainOSEK_Main_Task
-                0x0020636c       0x44 build/src/main.o
-                0x0020636c                TaskMainOSEK_Main_Task
+                0x002063b0       0x44 build/src/main.o
+                0x002063b0                TaskMainOSEK_Main_Task
  .text.ecrobot_set_light_sensor_active
-                0x002063b0       0x10 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
-                0x002063b0                ecrobot_set_light_sensor_active
+                0x002063f4       0x10 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
+                0x002063f4                ecrobot_set_light_sensor_active
  .text.ecrobot_get_light_sensor
-                0x002063c0       0x14 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
-                0x002063c0                ecrobot_get_light_sensor
+                0x00206404       0x14 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
+                0x00206404                ecrobot_get_light_sensor
+ .text.ecrobot_get_touch_sensor
+                0x00206418       0x20 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
+                0x00206418                ecrobot_get_touch_sensor
  .text.getDistance
-                0x002063d4       0x20 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
+                0x00206438       0x20 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
  .text.ecrobot_get_battery_voltage
-                0x002063f4        0xc /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
-                0x002063f4                ecrobot_get_battery_voltage
+                0x00206458        0xc /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
+                0x00206458                ecrobot_get_battery_voltage
  .text.ecrobot_get_button_state
-                0x00206400        0xc /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
-                0x00206400                ecrobot_get_button_state
+                0x00206464        0xc /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
+                0x00206464                ecrobot_get_button_state
  .text.ecrobot_init_nxtstate
-                0x0020640c       0x28 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
-                0x0020640c                ecrobot_init_nxtstate
+                0x00206470       0x28 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
+                0x00206470                ecrobot_init_nxtstate
  .text.ecrobot_poll_nxtstate
-                0x00206434       0x64 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
-                0x00206434                ecrobot_poll_nxtstate
+                0x00206498       0x64 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
+                0x00206498                ecrobot_poll_nxtstate
  .text.ecrobot_setDeviceInitialized
-                0x00206498       0x18 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
-                0x00206498                ecrobot_setDeviceInitialized
+                0x002064fc       0x18 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
+                0x002064fc                ecrobot_setDeviceInitialized
  .text.ecrobot_initDeviceStatus
-                0x002064b0        0xc /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
-                0x002064b0                ecrobot_initDeviceStatus
+                0x00206514        0xc /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
+                0x00206514                ecrobot_initDeviceStatus
  .text.ecrobot_bmp2lcd
-                0x002064bc      0x1c8 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
-                0x002064bc                ecrobot_bmp2lcd
+                0x00206520      0x1c8 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
+                0x00206520                ecrobot_bmp2lcd
  .text.ecrobot_status_monitor
-                0x00206684      0x138 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
-                0x00206684                ecrobot_status_monitor
+                0x002066e8      0x138 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
+                0x002066e8                ecrobot_status_monitor
  .text.ecrobot_sound_tone
-                0x002067bc        0xc /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
-                0x002067bc                ecrobot_sound_tone
+                0x00206820        0xc /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
+                0x00206820                ecrobot_sound_tone
  .text.StartupHook
-                0x002067c8        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(osek_hook.o)
-                0x002067c8                StartupHook
+                0x0020682c        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(osek_hook.o)
+                0x0020682c                StartupHook
  .text.PreTaskHook
-                0x002067cc        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(osek_hook.o)
-                0x002067cc                PreTaskHook
+                0x00206830        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(osek_hook.o)
+                0x00206830                PreTaskHook
  .text.PostTaskHook
-                0x002067d0        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(osek_hook.o)
-                0x002067d0                PostTaskHook
- .text          0x002067d4       0x8c /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_udivsi3.o)
-                0x002067d4                __udivsi3
-                0x002067d4                __aeabi_uidiv
-                0x00206850                __aeabi_uidivmod
- .text          0x00206860       0xa4 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_divsi3.o)
-                0x00206860                __aeabi_idiv
-                0x00206860                __divsi3
-                0x002068f4                __aeabi_idivmod
- .text          0x00206904       0xc8 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_umodsi3.o)
-                0x00206904                __umodsi3
- .text          0x002069cc       0xd8 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_modsi3.o)
-                0x002069cc                __modsi3
- .text          0x00206aa4        0x4 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_dvmd_tls.o)
-                0x00206aa4                __aeabi_ldiv0
-                0x00206aa4                __div0
-                0x00206aa4                __aeabi_idiv0
- .text          0x00206aa8       0x94 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-memset.o)
-                0x00206aa8                memset
- .text          0x00206b3c       0x10 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strcpy.o)
-                0x00206b3c                strcpy
- .text          0x00206b4c       0x10 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strlen.o)
-                0x00206b4c                strlen
-                0x00206b60                . = ALIGN (0x10)
- *fill*         0x00206b5c        0x4 00
+                0x00206834        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(osek_hook.o)
+                0x00206834                PostTaskHook
+ .text          0x00206838       0x8c /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_udivsi3.o)
+                0x00206838                __udivsi3
+                0x00206838                __aeabi_uidiv
+                0x002068b4                __aeabi_uidivmod
+ .text          0x002068c4       0xa4 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_divsi3.o)
+                0x002068c4                __aeabi_idiv
+                0x002068c4                __divsi3
+                0x00206958                __aeabi_idivmod
+ .text          0x00206968       0xc8 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_umodsi3.o)
+                0x00206968                __umodsi3
+ .text          0x00206a30       0xd8 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_modsi3.o)
+                0x00206a30                __modsi3
+ .text          0x00206b08        0x4 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_dvmd_tls.o)
+                0x00206b08                __aeabi_ldiv0
+                0x00206b08                __div0
+                0x00206b08                __aeabi_idiv0
+ .text          0x00206b0c       0x94 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-memset.o)
+                0x00206b0c                memset
+ .text          0x00206ba0       0x10 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strcpy.o)
+                0x00206ba0                strcpy
+ .text          0x00206bb0       0x10 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strlen.o)
+                0x00206bb0                strlen
+                0x00206bc0                . = ALIGN (0x10)
  *(*.rodata *.rodata.*)
  .rodata.tnum_task
-                0x00206b60        0x1 build/./kernel_cfg.o
-                0x00206b60                tnum_task
- *fill*         0x00206b61        0x3 00
+                0x00206bc0        0x1 build/./kernel_cfg.o
+                0x00206bc0                tnum_task
+ *fill*         0x00206bc1        0x3 00
  .rodata.tinib_stksz
-                0x00206b64        0x4 build/./kernel_cfg.o
-                0x00206b64                tinib_stksz
+                0x00206bc4        0x4 build/./kernel_cfg.o
+                0x00206bc4                tinib_stksz
  .rodata.tinib_inipri
-                0x00206b68        0x4 build/./kernel_cfg.o
-                0x00206b68                tinib_inipri
+                0x00206bc8        0x4 build/./kernel_cfg.o
+                0x00206bc8                tinib_inipri
  .rodata.tinib_stk
-                0x00206b6c        0x4 build/./kernel_cfg.o
-                0x00206b6c                tinib_stk
+                0x00206bcc        0x4 build/./kernel_cfg.o
+                0x00206bcc                tinib_stk
  .rodata.tnum_exttask
-                0x00206b70        0x1 build/./kernel_cfg.o
-                0x00206b70                tnum_exttask
- *fill*         0x00206b71        0x3 00
+                0x00206bd0        0x1 build/./kernel_cfg.o
+                0x00206bd0                tnum_exttask
+ *fill*         0x00206bd1        0x3 00
  .rodata.tinib_exepri
-                0x00206b74        0x4 build/./kernel_cfg.o
-                0x00206b74                tinib_exepri
+                0x00206bd4        0x4 build/./kernel_cfg.o
+                0x00206bd4                tinib_exepri
  .rodata.tinib_autoact
-                0x00206b78        0x4 build/./kernel_cfg.o
-                0x00206b78                tinib_autoact
+                0x00206bd8        0x4 build/./kernel_cfg.o
+                0x00206bd8                tinib_autoact
  .rodata.tinib_task
-                0x00206b7c        0x4 build/./kernel_cfg.o
-                0x00206b7c                tinib_task
+                0x00206bdc        0x4 build/./kernel_cfg.o
+                0x00206bdc                tinib_task
  .rodata.str1.1
-                0x00206b80       0x6c build/ecrobot_base.o
+                0x00206be0       0x6c build/ecrobot_base.o
  .rodata.exec_addr
-                0x00206bec        0x4 build/ecrobot_base.o
-                0x00206bec                exec_addr
+                0x00206c4c        0x4 build/ecrobot_base.o
+                0x00206c4c                exec_addr
  .rodata.str1.1
-                0x00206bf0       0xb9 build/src/main.o
- *fill*         0x00206ca9        0x3 00
+                0x00206c50       0xab build/src/main.o
+ *fill*         0x00206cfb        0x1 00
  .rodata.str1.4
-                0x00206cac       0x84 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
+                0x00206cfc       0x84 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
  .rodata.str1.4.stub
-                0x00206d30       0x20 linker stubs
-                0x00206d50                . = ALIGN (0x10)
+                0x00206d80       0x20 linker stubs
+                0x00206da0                . = ALIGN (0x10)
  *(*.gnu.linkonce.* .gcc_except_table)
-                0x00206d50                . = ALIGN (0x10)
+                0x00206da0                . = ALIGN (0x10)
 
 .vfp11_veneer   0x00205a40        0x0
  .vfp11_veneer  0x00000000        0x0 linker stubs
@@ -1496,179 +1498,180 @@ END GROUP
 .v4_bx          0x00205a40        0x0
  .v4_bx         0x00000000        0x0 linker stubs
 
-.tors           0x00206d50        0x0
-                0x00206d50                . = ALIGN (0x10)
-                0x00206d50                __ctor_begin = .
+.tors           0x00206da0        0x0
+                0x00206da0                . = ALIGN (0x10)
+                0x00206da0                __ctor_begin = .
  *(*.ctors*)
-                0x00206d50                __ctor_end = .
-                0x00206d50                . = ALIGN (0x10)
-                0x00206d50                __dtor_begin = .
+                0x00206da0                __ctor_end = .
+                0x00206da0                . = ALIGN (0x10)
+                0x00206da0                __dtor_begin = .
  *(*.dtors*)
-                0x00206d50                __dtor_end = .
-                0x00206d50                . = ALIGN (0x10)
+                0x00206da0                __dtor_end = .
+                0x00206da0                . = ALIGN (0x10)
 
-.bss            0x00206d50     0x1044
+.bss            0x00206da0     0x1048
  *(*.bss *.bss.*)
  .bss.ready_queue_first
-                0x00206d50       0x10 build/kernel/task.o
+                0x00206da0       0x10 build/kernel/task.o
  .bss.ready_primap
-                0x00206d60        0x2 build/kernel/task.o
- *fill*         0x00206d62        0x2 00
+                0x00206db0        0x2 build/kernel/task.o
+ *fill*         0x00206db2        0x2 00
  .bss.ready_queue_last
-                0x00206d64       0x10 build/kernel/task.o
+                0x00206db4       0x10 build/kernel/task.o
  .bss._stack_OSEK_Main_Task
-                0x00206d74      0x200 build/./kernel_cfg.o
- .bss.lcd.2769  0x00206f74      0x320 build/ecrobot_base.o
+                0x00206dc4      0x200 build/./kernel_cfg.o
+ .bss.lcd.2769  0x00206fc4      0x320 build/ecrobot_base.o
  .bss.status_bar_position
-                0x00207294        0x4 build/ecrobot_base.o
+                0x002072e4        0x4 build/ecrobot_base.o
  .bss.last_act_time.2847
-                0x00207298        0x4 build/ecrobot_base.o
+                0x002072e8        0x4 build/ecrobot_base.o
  .bss.status_bar
-                0x0020729c       0x10 build/ecrobot_base.o
- .bss.OS_flag   0x002072ac        0x4 build/ecrobot_base.o
+                0x002072ec       0x10 build/ecrobot_base.o
+ .bss.OS_flag   0x002072fc        0x4 build/ecrobot_base.o
  .bss.buttons_i
-                0x002072b0        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
+                0x00207300        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
  .bss.buttons_states
-                0x002072b4       0x14 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
+                0x00207304       0x14 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
  .bss.ecrobot_inputs
-                0x002072c8        0x8 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
+                0x00207318        0x8 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
  .bss.systick_ms
-                0x002072d0        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(systick.oram)
+                0x00207320        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(systick.oram)
  .bss.delayedEnable
-                0x002072d4        0x1 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(udp.oram)
- *fill*         0x002072d5        0x3 00
- .bss.outCnt    0x002072d8        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(udp.oram)
- .bss.outPtr    0x002072dc        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(udp.oram)
+                0x00207324        0x1 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(udp.oram)
+ *fill*         0x00207325        0x3 00
+ .bss.outCnt    0x00207328        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(udp.oram)
+ .bss.outPtr    0x0020732c        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(udp.oram)
  .bss.newAddress
-                0x002072e0        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(udp.oram)
+                0x00207330        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(udp.oram)
  .bss.currentRxBank
-                0x002072e4        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(udp.oram)
+                0x00207334        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(udp.oram)
  .bss.currentFeatures
-                0x002072e8        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(udp.oram)
+                0x00207338        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(udp.oram)
  .bss.currentConfig
-                0x002072ec        0x1 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(udp.oram)
- *fill*         0x002072ed        0x3 00
- .bss.twi_mask  0x002072f0        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(twi.oram)
- .bss.twi_ptr   0x002072f4        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(twi.oram)
+                0x0020733c        0x1 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(udp.oram)
+ *fill*         0x0020733d        0x3 00
+ .bss.twi_mask  0x00207340        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(twi.oram)
+ .bss.twi_ptr   0x00207344        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(twi.oram)
  .bss.twi_pending
-                0x002072f8        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(twi.oram)
+                0x00207348        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(twi.oram)
  .bss.twi_state
-                0x002072fc        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(twi.oram)
- .bss.page      0x00207300        0x1 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_spi.oram)
-                0x00207300                page
- .bss.dirty     0x00207301        0x1 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_spi.oram)
-                0x00207301                dirty
- *fill*         0x00207302        0x2 00
- .bss.display   0x00207304        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_spi.oram)
-                0x00207304                display
+                0x0020734c        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(twi.oram)
+ .bss.page      0x00207350        0x1 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_spi.oram)
+                0x00207350                page
+ .bss.dirty     0x00207351        0x1 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_spi.oram)
+                0x00207351                dirty
+ *fill*         0x00207352        0x2 00
+ .bss.display   0x00207354        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_spi.oram)
+                0x00207354                display
  .bss.interrupts_this_period
-                0x00207308        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_motors.oram)
+                0x00207358        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_motors.oram)
  .bss.nxt_motor_initialised
-                0x0020730c        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_motors.oram)
- .bss.motor     0x00207310       0x30 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_motors.oram)
+                0x0020735c        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_motors.oram)
+ .bss.motor     0x00207360       0x30 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_motors.oram)
  .bss.display_tick
-                0x00207340        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(display.oram)
-                0x00207340                display_tick
+                0x00207390        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(display.oram)
+                0x00207390                display_tick
  .bss.display_array
-                0x00207344      0x388 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(display.oram)
+                0x00207394      0x388 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(display.oram)
  .bss.i2c_int_count
-                0x002076cc        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(i2c.oram)
- .bss.i2c_port  0x002076d0      0x170 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(i2c.oram)
+                0x0020771c        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(i2c.oram)
+ .bss.i2c_port  0x00207720      0x170 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(i2c.oram)
  .bss.sound_mode
-                0x00207840        0x1 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(sound.oram)
-                0x00207840                sound_mode
- *fill*         0x00207841        0x3 00
+                0x00207890        0x1 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(sound.oram)
+                0x00207890                sound_mode
+ *fill*         0x00207891        0x3 00
  .bss.in_buf_idx
-                0x00207844        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(bt.oram)
- .bss.buf_ptr   0x00207848        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(bt.oram)
+                0x00207894        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(bt.oram)
+ .bss.buf_ptr   0x00207898        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(bt.oram)
  .bss.out_buf_ptr
-                0x0020784c        0x1 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(bt.oram)
+                0x0020789c        0x1 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(bt.oram)
  .bss.in_buf_in_ptr
-                0x0020784d        0x1 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(bt.oram)
- .bss.in_buf    0x0020784e      0x100 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(bt.oram)
- *fill*         0x0020794e        0x2 00
+                0x0020789d        0x1 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(bt.oram)
+ .bss.in_buf    0x0020789e      0x100 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(bt.oram)
+ *fill*         0x0020799e        0x2 00
  .bss.link_state
-                0x00207950        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_avr.oram)
+                0x002079a0        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_avr.oram)
  .bss.update_count
-                0x00207954        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_avr.oram)
+                0x002079a4        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_avr.oram)
  .bss.nxt_avr_stats
-                0x00207958       0x14 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_avr.oram)
+                0x002079a8       0x14 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_avr.oram)
  .bss.debounce_cnt
-                0x0020796c        0x2 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_avr.oram)
+                0x002079bc        0x2 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_avr.oram)
  .bss.debounce_state
-                0x0020796e        0x2 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_avr.oram)
+                0x002079be        0x2 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_avr.oram)
  .bss.button_state
-                0x00207970        0x2 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_avr.oram)
+                0x002079c0        0x2 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_avr.oram)
  .bss.prev_buttons
-                0x00207972        0x2 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_avr.oram)
- .bss.from_buf  0x00207974        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_avr.oram)
+                0x002079c2        0x2 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_avr.oram)
+ .bss.from_buf  0x002079c4        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_avr.oram)
  .bss.io_from_avr
-                0x00207978        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_avr.oram)
+                0x002079c8        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_avr.oram)
  .bss.data_from_avr
-                0x0020797c       0x1a /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_avr.oram)
+                0x002079cc       0x1a /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_avr.oram)
  .bss.data_to_avr
-                0x00207996        0x9 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_avr.oram)
+                0x002079e6        0x9 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_avr.oram)
  .bss.io_to_avr
-                0x0020799f        0x8 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_avr.oram)
- *fill*         0x002079a7        0x1 00
- .bss.display   0x002079a8        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_lcd.oram)
-                0x002079b0                . = ALIGN (0x10)
- *fill*         0x002079ac        0x4 00
-                0x002079b0                __bss_end__ = .
- COMMON         0x002079b0        0x2 build/kernel/interrupt.o
-                0x002079b0                runisr
-                0x002079b1                sus_all_cnt
- *fill*         0x002079b2        0x2 00
- COMMON         0x002079b4       0x10 build/kernel/osctl.o
-                0x002079b4                callevel
-                0x002079b5                _errorhook_svcid
-                0x002079b6                appmode
-                0x002079b8                _errorhook_par1
-                0x002079bc                _errorhook_par3
-                0x002079c0                _errorhook_par2
- COMMON         0x002079c4        0x3 build/kernel/task.o
-                0x002079c4                runtsk
-                0x002079c5                schedtsk
-                0x002079c6                nextpri
- *fill*         0x002079c7        0x1 00
- COMMON         0x002079c8       0x48 build/./kernel_cfg.o
-                0x002079c8                tcb_waievt
-                0x002079cc                rescb_prevpri
-                0x002079d0                almcb_prev
-                0x002079d4                tcb_lastres
-                0x002079d8                almcb_almval
-                0x002079dc                tcxb_pc
-                0x002079e0                tcb_next
-                0x002079e4                tcb_curpri
-                0x002079e8                tcb_tstat
-                0x002079ec                isrcb_lastres
-                0x002079f0                cntcb_almque
-                0x002079f4                rescb_prevres
-                0x002079f8                tcb_actcnt
-                0x002079fc                tcb_curevt
-                0x00207a00                almcb_cycle
-                0x00207a04                tcxb_sp
-                0x00207a08                almcb_next
-                0x00207a0c                cntcb_curval
- COMMON         0x00207a10       0x10 build/src/main.o
-                0x00207a10                knoten
-                0x00207a14                kreuzung
- COMMON         0x00207a20       0x44 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(uart.oram)
-                0x00207a20                uart
- COMMON         0x00207a64        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(data_abort.oram)
-                0x00207a64                data_abort_pc
- COMMON         0x00207a68        0x8 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(display.oram)
-                0x00207a68                display_x
-                0x00207a6c                display_y
- COMMON         0x00207a70      0x324 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(sound.oram)
-                0x00207a70                sample
-                0x00206d50                __bss_start__ = ADDR (.bss)
-                0x00207d94                __bss_end__ = (ADDR (.bss) + SIZEOF (.bss))
-                0x00207d94                PROVIDE (end, .)
+                0x002079ef        0x8 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_avr.oram)
+ *fill*         0x002079f7        0x1 00
+ .bss.display   0x002079f8        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_lcd.oram)
+                0x00207a00                . = ALIGN (0x10)
+ *fill*         0x002079fc        0x4 00
+                0x00207a00                __bss_end__ = .
+ COMMON         0x00207a00        0x2 build/kernel/interrupt.o
+                0x00207a00                runisr
+                0x00207a01                sus_all_cnt
+ *fill*         0x00207a02        0x2 00
+ COMMON         0x00207a04       0x10 build/kernel/osctl.o
+                0x00207a04                callevel
+                0x00207a05                _errorhook_svcid
+                0x00207a06                appmode
+                0x00207a08                _errorhook_par1
+                0x00207a0c                _errorhook_par3
+                0x00207a10                _errorhook_par2
+ COMMON         0x00207a14        0x3 build/kernel/task.o
+                0x00207a14                runtsk
+                0x00207a15                schedtsk
+                0x00207a16                nextpri
+ *fill*         0x00207a17        0x1 00
+ COMMON         0x00207a18       0x48 build/./kernel_cfg.o
+                0x00207a18                tcb_waievt
+                0x00207a1c                rescb_prevpri
+                0x00207a20                almcb_prev
+                0x00207a24                tcb_lastres
+                0x00207a28                almcb_almval
+                0x00207a2c                tcxb_pc
+                0x00207a30                tcb_next
+                0x00207a34                tcb_curpri
+                0x00207a38                tcb_tstat
+                0x00207a3c                isrcb_lastres
+                0x00207a40                cntcb_almque
+                0x00207a44                rescb_prevres
+                0x00207a48                tcb_actcnt
+                0x00207a4c                tcb_curevt
+                0x00207a50                almcb_cycle
+                0x00207a54                tcxb_sp
+                0x00207a58                almcb_next
+                0x00207a5c                cntcb_curval
+ COMMON         0x00207a60       0x14 build/src/main.o
+                0x00207a60                knoten
+                0x00207a64                gegenstand
+                0x00207a68                kreuzung
+ COMMON         0x00207a74       0x44 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(uart.oram)
+                0x00207a74                uart
+ COMMON         0x00207ab8        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(data_abort.oram)
+                0x00207ab8                data_abort_pc
+ COMMON         0x00207abc        0x8 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(display.oram)
+                0x00207abc                display_x
+                0x00207ac0                display_y
+ COMMON         0x00207ac4      0x324 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(sound.oram)
+                0x00207ac4                sample
+                0x00206da0                __bss_start__ = ADDR (.bss)
+                0x00207de8                __bss_end__ = (ADDR (.bss) + SIZEOF (.bss))
+                0x00207de8                PROVIDE (end, .)
 
-.heap_area      0x00207d94     0x7de4
+.heap_area      0x00207de8     0x7d90
                 0x0020fb78                . = (. + (0x20fb78 - end))
- *fill*         0x00207d94     0x7de4 00
+ *fill*         0x00207de8     0x7d90 00
 
 .stack          0x0020fb78      0x488
                 0x0020fbf8                . = (. + 0x80)
@@ -2395,6 +2398,7 @@ ecrobot_get_sonar_sensor                          /home/robo/nxtOSEK/nxtOSEK/ecr
 ecrobot_get_sound_sensor                          /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
 ecrobot_get_systick_ms                            /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
 ecrobot_get_touch_sensor                          /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
+                                                  build/src/main.o
 ecrobot_initDeviceStatus                          /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
                                                   build/ecrobot.o
 ecrobot_init_bt_connection                        build/ecrobot_bluetooth.o
@@ -2474,6 +2478,7 @@ execution_mode                                    build/ecrobot_base.o
                                                   build/ecrobot.o
 exit_and_dispatch                                 build/config/at91sam7s-gnu/cpu_support.oram
                                                   build/kernel/task_manage.o
+fahre_richtung                                    build/src/main.o
 fahren                                            build/src/main.o
 fiq_enable                                        /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(interrupts.oram)
 fiq_get_and_disable                               /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(interrupts.oram)
@@ -2484,11 +2489,11 @@ flash_write                                       /home/robo/nxtOSEK/nxtOSEK/ecr
 flash_write_page                                  /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(flashprog.oram)
                                                   /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(flash_loader.oram)
 folgen                                            build/src/main.o
+gegenstand                                        build/src/main.o
 get_OS_flag                                       build/ecrobot_base.o
                                                   build/syslib/at91sam7s-gnu/lego_nxt/hw_sys_timer.oram
 get_device_status                                 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
 has_flash_request                                 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(flash_loader.oram)
-hello_world                                       build/src/main.o
 i2c_busy                                          /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(i2c.oram)
                                                   /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
 i2c_disable                                       /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(i2c.oram)
