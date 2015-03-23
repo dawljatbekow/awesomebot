@@ -5,7 +5,6 @@ int knoten;									//Zaehlen der Knoten
 int kreuzung[3];							//Array mit {Links, Rechts, Geradeaus} kodierung
 int lichtgrenze;
 
-
 int Richtung;
 
 typedef struct Kreuzung{				 //Datentyp indem Punkt und zugehöriger Kreuzungstype
@@ -20,12 +19,12 @@ typedef struct Koordinaten{ 			 //Datentyp für Kreuzungen und Kanten
 }Koordinaten;
 
 struct Kreuzung pa[147];                  //Speichert alle besuchten Knoten
-struct Koordinaten Strecke[147];         //Aufzeichnung von Kreuzungen für den Rückweg
+struct Kreuzung Strecke[147];         //Aufzeichnung von Kreuzungen für den Rückweg
 struct Koordinaten gesKnoten[49];        //Speicher alle nicht besuchte Punkte Punkte
-int ks; 								 //Zähler f�r pa
-int s;									 //Zähler für Strecke
-int n;									 //Zähler für Token(Gegenstände)
-int gK;
+int paZ; 								 //Zähler f�r pa
+int StreckeZ;									 //Zähler für Strecke
+int TokenZ;									 //Zähler für Token(Gegenstände)
+int gefundeneKnotenZ;
 int AWege;								 //Zähler für gefundene unbenutzte Wege
 int AgesPunkte;
 
@@ -106,8 +105,6 @@ void anzeige(int x[]){
 
 }
 
-
-
 void kreuzungerkennen(int lenken_v){
 	/*
 	 * Funktion zum Drehen am Knoten, dabei werden die moeglichen Richtungen in Array (kreuzung) gespeichert
@@ -125,14 +122,14 @@ void kreuzungerkennen(int lenken_v){
 
 		a=ecrobot_get_light_sensor(NXT_PORT_S4);
 		if(a>lichtgrenze){
-			if((s >= 0 && s<= x/16) || (s >= x-x/16)){	//Schwarte Linie am Anfang der Drehug oder am Ende
+			if((s >= 0 && s<= x/8) || (s >= x-x/8)){	//Schwarte Linie am Anfang der Drehug oder am Ende
 				kreuzung[2]=1;							//entspicht Weg geradeaus vorhanden
 														//wird an der letzten Position im Array gespeichert
 			}
-			if(s >= x/4-x/16 && s<=x/4+x/16 ){			//Schwarz bei einem Viertel der Umdrehung = rechts
+			if(s >= x/4-x/8 && s<=x/4+x/8 ){			//Schwarz bei einem Viertel der Umdrehung = rechts
 				kreuzung[1]=1;							//gespeichert an zweiter Stelle im Array
 			}
-			if(s >=3*x/4-x/16 && s<=3*x/4+x/16 ){		//nach 3/4 der Umdrehung = links
+			if(s >=3*x/4-x/8 && s<=3*x/4+x/8 ){		//nach 3/4 der Umdrehung = links
 				kreuzung[0]=1;							//an erster Stelle
 			}
 		}
@@ -154,12 +151,16 @@ void ecrobot_device_terminate(void) {
 
 
 void kalibrierung(){
+	ecrobot_status_monitor("Kalibrierung");
+	lichtgrenze=Richtung=0;
+	systick_wait_ms(2000);
 	ecrobot_set_light_sensor_active(NXT_PORT_S4);		//Lichtsensor initiallisieren
 	int a=ecrobot_get_light_sensor(NXT_PORT_S4);
 	richtiglenken(20,30);
 	int b=ecrobot_get_light_sensor(NXT_PORT_S4);
 	richtiglenken(-20,30);
 	lichtgrenze=((a+2*b)/3);
+	ecrobot_status_monitor("Ich bin bereit");
 }
 
 void orientierung(int lenken_v){
@@ -181,7 +182,7 @@ void fahren(int v){
 	 */
 	int a=0;
 	nxt_motor_set_count(NXT_PORT_B, 0);
-	while(a<200){
+	while(a<190){
 		nxt_motor_set_speed(NXT_PORT_C, v, 1);		//Motor am Port_B faehrt langsamer als der am Port_A
 		nxt_motor_set_speed(NXT_PORT_B, v, 1);		//dies wird hier mit v+3 korrigiert
 		a=nxt_motor_get_count(NXT_PORT_B);
@@ -211,27 +212,52 @@ int folgen(int v, int lenken_v){
 			a = ecrobot_get_light_sensor(NXT_PORT_S4);
 
 		}
-		stop();											//bei Verlust der Linie oder Gegenstand stoppen
-
+		stop();
 		if(touch1>0 || touch2>0){									//Routine nach Erkennung eines Gegenstandes
 			ecrobot_sound_tone(220, 1000, 20);			//Ausgabe eines vorgeschriebenen Tons
-			systick_wait_ms(10000);						//warte 10s auf entnahme des Gegenstandes
+			stop();
+			systick_wait_ms(10000);	//warte 10s auf entnahme des Gegenstandes
+
 			gegenstand=1;								//Speicherung des Gegenstandes
 			touch1 = touch2 = 0;
 		}
+		stop();											//bei Verlust der Linie oder Gegenstand stoppen
 
 		int b=0;										//Linie wird gesucht durch Auslenkung um 20 LE
-		while(b<18 && a<=lichtgrenze){							//nach rechts
+		while(b<18 && a<=lichtgrenze ){							//nach rechts
+			touch1=ecrobot_get_touch_sensor(NXT_PORT_S1);//faehrt solange kein Gegenstand im Weg ist
+			touch2=ecrobot_get_touch_sensor(NXT_PORT_S2);
 			richtiglenken(2, lenken_v);
 			a = ecrobot_get_light_sensor(NXT_PORT_S4);
+			if(touch1>0 || touch2>0){									//Routine nach Erkennung eines Gegenstandes
+						ecrobot_sound_tone(220, 1000, 20);			//Ausgabe eines vorgeschriebenen Tons
+						stop();
+						systick_wait_ms(10000);	//warte 10s auf entnahme des Gegenstandes
+
+						gegenstand=1;								//Speicherung des Gegenstandes
+						touch1 = touch2 = 0;
+					}
 			b=b+2;
 			}
 		b=0;
-		while(b<42 && a<=lichtgrenze){							//dann um 40LE nach links
+		while(b<42 && a<=lichtgrenze ){							//dann um 40LE nach links
+			touch1=ecrobot_get_touch_sensor(NXT_PORT_S1);//faehrt solange kein Gegenstand im Weg ist
+			touch2=ecrobot_get_touch_sensor(NXT_PORT_S2);
 			richtiglenken(-2, lenken_v);
 			a = ecrobot_get_light_sensor(NXT_PORT_S4);
+			if(touch1>0 || touch2>0){									//Routine nach Erkennung eines Gegenstandes
+				ecrobot_sound_tone(220, 1000, 20);			//Ausgabe eines vorgeschriebenen Tons
+				stop();
+				systick_wait_ms(10000);	//warte 10s auf entnahme des Gegenstandes
+
+				gegenstand=1;								//Speicherung des Gegenstandes
+				touch1 = touch2 = 0;
+			}
 			b=b+2;
 		}
+
+
+
 		if (a<lichtgrenze){										//Wenn Linie nicht gefunden wird, dann muss es ein Knoten sein
 			knoten=1;
 
@@ -296,15 +322,15 @@ int hasEast(int value){
 int controle(int Richtungx, int Richtungy){
 	//Funktion zur Überprüfung, ob ein benachtbarter Punkt breits besucht wurde.
 	int i;
-	for(i=0;i<ks;i++){
-		if(pa[i].y==pa[ks].y+Richtungy && pa[i].x==pa[ks].x+Richtungx)return 1;
+	for(i=0;i<paZ;i++){
+		if(pa[i].y==pa[paZ].y+Richtungy && pa[i].x==pa[paZ].x+Richtungx)return 1;
 	}
 return 0;
 }
 int schongesucht(int Richtungx, int Richtungy){
 	int i=0;
-	for(i=0;i<gK;i++){
-		if(gesKnoten[i].x==pa[ks].x+Richtungx && gesKnoten[i].y==pa[ks].y+Richtungy)return 1;
+	for(i=0;i<gefundeneKnotenZ;i++){
+		if(gesKnoten[i].x==pa[paZ].x+Richtungx && gesKnoten[i].y==pa[paZ].y+Richtungy)return 1;
 	}
 return 0;
 }
@@ -314,21 +340,21 @@ int Robot_Move(int x, int y){
 	if(y==1){
 		switch(Richtung){
 		case 0: break;
-		case 1: fahre_richtung(1); break;
+		case 1: fahre_richtung(0); break;
 		case 2: fahre_richtung(3); break;
-		case 3: fahre_richtung(0); break;
+		case 3: fahre_richtung(1); break;
 		}
 	}
 	if(y==-1){
 		switch(Richtung){
 		case 2: break;
-		case 3: fahre_richtung(1); break;
+		case 3: fahre_richtung(0); break;
 		case 0: fahre_richtung(3); break;
-		case 1: fahre_richtung(0); break;
+		case 1: fahre_richtung(1); break;
 		}
 	}
 	if(x==1){
-		ecrobot_sound_tone(220, 1000, 20);
+		//ecrobot_sound_tone(220, 1000, 20);
 		switch(Richtung){
 		case 1: break;
 		case 0: fahre_richtung(1); break;
@@ -337,7 +363,7 @@ int Robot_Move(int x, int y){
 			}
 	}
 	if(x==-1){
-		ecrobot_sound_tone(220, 1000, 20);
+		//ecrobot_sound_tone(220, 1000, 20);
 		switch(Richtung){
 		case 3: break;
 		case 2: fahre_richtung(1); break;
@@ -345,7 +371,7 @@ int Robot_Move(int x, int y){
 		case 0: fahre_richtung(0); break;
 		}
 	}
-	int a=folgen(50,20);
+	int a=folgen(70,20);
 	return a;
 }
 
@@ -354,81 +380,104 @@ void gehen(int Richtungx, int Richtungy){
 	  wird, da es keine Diagonalen gibt.*/
 	// Richtungx (Richtungy) meint dabei den Schritt, der in x-Richtung (y-Richtung) gegeangen wird.*/
 	int a=Robot_Move(Richtungx,Richtungy);
-	if(a==1)n++;
+	if(a==1){
+		TokenZ++;
+	}
 	/*Schritt wird ausgeführt und überprüft, ob Token gefunden wird. Wird ein Token gefunden, wird
 	  die Anzahl der gefundenen Token um Eins erhöht. */							//ein Weg wurde benutzt.
-	s++; 								//Zähler Strecke erhöhen
-	ks++;
-	pa[ks].y=pa[ks-1].y+Richtungy; 				//neuer Standort
-	pa[ks].x=pa[ks-1].x+Richtungx;
-	Strecke[s].x=pa[ks].x; 					//Speicherung des aktuellen Standorts für den Rückweg
-	Strecke[s].y=pa[ks].y;
+	StreckeZ++; 								//Zähler Strecke erhöhen
+	paZ++;
+	pa[paZ].y=pa[paZ-1].y+Richtungy; 				//neuer Standort
+	pa[paZ].x=pa[paZ-1].x+Richtungx;
+	Strecke[StreckeZ].x=pa[paZ].x; 					//Speicherung des aktuellen Standorts für den Rückweg
+	Strecke[StreckeZ].y=pa[paZ].y;
+
+
 	if (schongesucht(0,0)==1 && controle(0,0)==0){
-		gesKnoten[gK].x=0;
-		gesKnoten[gK].y=0;
+		gesKnoten[gefundeneKnotenZ].x=0;
+		gesKnoten[gefundeneKnotenZ].y=0;
 		AgesPunkte--;
 	}
 }
 
 int Robot_GetIntersections(void){
-	int temp[4];
-	int a =2-Richtung;
-	if(a<0)
-		a=a+4;
 
-	int b =1-Richtung;
-	if(b<0)
-		b=b+4;
-	int c =3-Richtung;
-	if(c<0)
-		c=c+4;
-	int d =0-Richtung;
+	int temp[4];
+	int a =0+Richtung;
+	if(a>3)
+		a=a-4;
+
+	int b =1+Richtung;
+	if(b>3)
+		b=b-4;
+	int c =2+Richtung;
+	if(c>3)
+		c=c-4;
+	int d =3+Richtung;
+	if(d>3)
+		d=d-4;
 
 	kreuzungerkennen(30);
 
-	temp[c]=kreuzung[0];
-	temp[d]=kreuzung[2];
+	temp[d]=kreuzung[0];
+	temp[a]=kreuzung[2];
 	temp[b]=kreuzung[1];
-	temp[a]=1;
+	temp[c]=1;
 
 	return temp[0]*16+temp[2]*32+temp[3]*64+temp[1]*128;
-	//return 224;
 	}
 
 void suchen(){
 	/* Die Funktion suchen beschäftigt sich mit der Suche nach Gegenständen im Labyrinth.
 	   Werden dabei keine unbesuchten Kanten gefunden, geht der Roboter einen Schritt zurück. */
-	n=0; 									//Gefundene Gegenstände vor dem Suchlauf auf Null setzen
-	AgesPunkte=0;
-	s=0;									// Startwert besuchter Kreuzungen
-	gK=0;
-	while(n!=3){
+	TokenZ=0; 									//Gefundene Gegenstände vor dem Suchlauf auf Null setzen
+	AgesPunkte=0;									// Startwert besuchter Kreuzungen
+	gefundeneKnotenZ=0;
+	while(TokenZ<3){
 		/*Sobald drei Gegenstände gefunden wurden, soll der Roboter mit dem Suchen im Labyrinth aufhören.*/
-		pa[ks].Gabelung= Robot_GetIntersections();     //Bestimmung Kreuzungstype (Jeder Krezungstype hat eine Nummer)
+		int test=0;
+		/*if(paZ==0){
+			pa[paZ].Gabelung= Robot_GetIntersections();
+			Strecke[StreckeZ].Gabelung= pa[paZ].Gabelung;
+		}*/
+		for(int w=0; w<paZ;w++){
+			if((pa[w].x==pa[paZ].x) && (pa[w].y==pa[paZ].y)){
+				pa[paZ].Gabelung=pa[w].Gabelung;
+				test=0;
+				break;
+			}
+			else{
+				test=1;		//Bestimmung Kreuzungstype (Jeder Krezungstype hat eine Nummer)
+			}
+		}
+		if(test==1){
+			pa[paZ].Gabelung= Robot_GetIntersections();
+			Strecke[StreckeZ].Gabelung= pa[paZ].Gabelung;
+		}
 		//Überprüfung, die Kante bereits als möglicher Weg hinzugezählt wurde.
 		if(controle(0,0)!=1){
-			if(hasNorth(pa[ks].Gabelung)!=0 && controle(0,1)==0 && schongesucht(0,1)==0){//Norden
-				gesKnoten[gK].y=pa[ks].y+1;
-				gesKnoten[gK].x=pa[ks].x;
-				gK++;
+			if(hasNorth(pa[paZ].Gabelung)!=0 && controle(0,1)==0 && schongesucht(0,1)==0){//Norden
+				gesKnoten[gefundeneKnotenZ].y=pa[paZ].y+1;
+				gesKnoten[gefundeneKnotenZ].x=pa[paZ].x;
+				gefundeneKnotenZ++;
 				AgesPunkte++;
 			}
-			if(hasSouth(pa[ks].Gabelung)!=0 && controle(0,-1)==0 && schongesucht(0,-1)==0){
-				gesKnoten[gK].y=pa[ks].y-1;
-				gesKnoten[gK].x=pa[ks].x;//Süden
-				gK++;
+			if(hasSouth(pa[paZ].Gabelung)!=0 && controle(0,-1)==0 && schongesucht(0,-1)==0){
+				gesKnoten[gefundeneKnotenZ].y=pa[paZ].y-1;
+				gesKnoten[gefundeneKnotenZ].x=pa[paZ].x;//Süden
+				gefundeneKnotenZ++;
 				AgesPunkte++;
 			}
-			if(hasEast(pa[ks].Gabelung)!=0 && controle(1,0)==0 && schongesucht(1,0)==0){
-				gesKnoten[gK].y=pa[ks].y;
-				gesKnoten[gK].x=pa[ks].x+1;//Osten
-				gK++;
+			if(hasEast(pa[paZ].Gabelung)!=0 && controle(1,0)==0 && schongesucht(1,0)==0){
+				gesKnoten[gefundeneKnotenZ].y=pa[paZ].y;
+				gesKnoten[gefundeneKnotenZ].x=pa[paZ].x+1;//Osten
+				gefundeneKnotenZ++;
 				AgesPunkte++;
 			}
-			if(hasWest(pa[ks].Gabelung)!=0 && controle(-1,0)==0 && schongesucht(-1,0)==0){
-				gesKnoten[gK].y=pa[ks].y;
-				gesKnoten[gK].x=pa[ks].x-1;//Westen
-				gK++;
+			if(hasWest(pa[paZ].Gabelung)!=0 && controle(-1,0)==0 && schongesucht(-1,0)==0){
+				gesKnoten[gefundeneKnotenZ].y=pa[paZ].y;
+				gesKnoten[gefundeneKnotenZ].x=pa[paZ].x-1;//Westen
+				gefundeneKnotenZ++;
 				AgesPunkte++;
 			}
 		}
@@ -436,27 +485,30 @@ void suchen(){
 			/*Wenn keine neuen/unbefahrenen Wege vorhanden sind (gesamtes Labyrinth durchsucht und weniger als
 			  3 Gegenstände gefunden wurden, soll die Suche abgebrochen werden. Ist er bereits am Startpunkt
 			  ist er fertig. */
-			s=0;
-			break;}
+			StreckeZ=0;
+			TokenZ=3;
+			stop();
+			ecrobot_sound_tone(220, 1000, 20);
+
+		}
 		else{
 			//Kontrolle, ob Richtung vorhanden ist und ob die gefundene Richtung bereits besucht wurde:
-			if(hasNorth(pa[ks].Gabelung)!=0 && controle(0,1)==0) gehen(0,1); 			//Norden
-			else if(hasSouth(pa[ks].Gabelung)!=0 && controle(0,-1)==0) gehen(0,-1); 	//Süden
-			else if(hasEast(pa[ks].Gabelung)!=0 && controle(1,0)==0) gehen(1,0); 		//Osten
-			else if(hasWest(pa[ks].Gabelung)!=0 && controle(-1,0)==0) gehen(-1,0); 	//Westen
+			if(hasNorth(pa[paZ].Gabelung)!=0 && controle(0,1)==0) gehen(0,1); 			//Norden
+			else if(hasSouth(pa[paZ].Gabelung)!=0 && controle(0,-1)==0) gehen(0,-1); 	//Süden
+			else if(hasEast(pa[paZ].Gabelung)!=0 && controle(1,0)==0) gehen(1,0); 		//Osten
+			else if(hasWest(pa[paZ].Gabelung)!=0 && controle(-1,0)==0) gehen(-1,0); 	//Westen
 			else{
 			/*Es wird keine neue Richtung gefunden --> dann geht der Roboter einen Schritt zurück und
 			  Position des Roboters wird aktualliesiert.*/
-				Robot_Move(Strecke[s-1].x-Strecke[s].x,Strecke[s-1].y-Strecke[s].y);
-				ks++;
-				pa[ks].x=Strecke[s-1].x;
-				pa[ks].y=Strecke[s-1].y;
-				Strecke[s].x=Strecke[s-1].x; 				//Löschen der doppelten Kreuzung
-				Strecke[s].y=Strecke[s-1].y;
-				s--;
-				if(pa[ks].x==0 && pa[ks].y==0){
-					s=0;
-					break;}
+				Robot_Move(Strecke[StreckeZ-1].x-Strecke[StreckeZ].x,Strecke[StreckeZ-1].y-Strecke[StreckeZ].y);
+				paZ++;
+				pa[paZ].x=Strecke[StreckeZ-1].x;
+				pa[paZ].y=Strecke[StreckeZ-1].y;
+				Strecke[StreckeZ].x=0; 				//Löschen der doppelten Kreuzung
+				Strecke[StreckeZ].y=0;
+				Strecke[StreckeZ].Gabelung=0;
+				StreckeZ--;
+
 			}
 		}
 	}
@@ -467,33 +519,46 @@ void rueckkehr(void){
 	/* Die Funktion rueckkehr gibt dem Roboter die Möglichkeit von seiner momentanen Position aus
 	   zu seinem Startpunkt zurück zu finden. Dabei nimmt er den in Strecke gespeicherten Weg und zieht
 	   benachbarte Punkte mit in seine Betrachtung ein, um eventuelle Abkürzungen zu finden. */
+
+	//fahre_richtung(3);
+	Richtung=Richtung+2;
+	if (Richtung>3) Richtung=Richtung-4;
 	int i;
-	while(s!=0){
+	Strecke[StreckeZ].Gabelung=Robot_GetIntersections();
+	while(StreckeZ!=0){
+		int deltax=0;
+		int deltay=0;
 		/*Solange er nicht wieder am Start ist (Strecke[s=0] ist dabei der Startpunkt), läuft der Roboter
 		rückwärts und schaut nach Abkürzungen durch bekannte Punkte in der direkten Umgebung*/
-		for(i=0;i<s;i++){
-			if (Strecke[s].x+1==Strecke[i].x && Strecke[s].y==Strecke[i].y && (hasEast(Robot_GetIntersections())==1)) {
+		for(i=0;i<StreckeZ;i++){
+			if ((Strecke[StreckeZ].x+1==Strecke[i].x) && (Strecke[StreckeZ].y==Strecke[i].y) && (hasEast(Strecke[StreckeZ].Gabelung)==1)) {
 				//Kontrolle ob ein Punkt in östlicher Richtung schon befahren wurde und ob eine Verbindung zu ihm existiert.
-				Robot_Move(Strecke[i].x,Strecke[i].y);
-				s=i;
+				deltax=Strecke[StreckeZ].x-Strecke[i].x;
+				Robot_Move(deltax,deltay);
+				StreckeZ=i;
 				break;}
-			else if (Strecke[s].x-1==Strecke[i].x && Strecke[s].y==Strecke[i].y && (hasWest(Robot_GetIntersections())==1)) {
+			else if ((Strecke[StreckeZ].x-1==Strecke[i].x) && (Strecke[StreckeZ].y==Strecke[i].y) && (hasWest(Strecke[StreckeZ].Gabelung)==1)) {
 				//Analog für Westen
-				Robot_Move(Strecke[i].x,Strecke[i].y);
-				s=i;
+				deltax=Strecke[StreckeZ].x-Strecke[i].x;
+				Robot_Move(deltax,deltay);
+				StreckeZ=i;
 				break;}
-			else if (Strecke[s].y+1==Strecke[i].y && Strecke[s].x==Strecke[i].x && (hasNorth(Robot_GetIntersections())==1)) {
+			else if ((Strecke[StreckeZ].y+1==Strecke[i].y) && (Strecke[StreckeZ].x==Strecke[i].x) && (hasNorth(Strecke[StreckeZ].Gabelung)==1)) {
 				//Analog für Norden
-				Robot_Move(Strecke[i].x,Strecke[i].y);
-				s=i;
+				deltay=Strecke[StreckeZ].y-Strecke[i].y;
+				Robot_Move(deltax,deltay);
+				StreckeZ=i;
 				break;}
-			else if (Strecke[s].y-1==Strecke[i].y && Strecke[s].x==Strecke[i].x  && (hasSouth(Robot_GetIntersections())==1)) {
+			else if ((Strecke[StreckeZ].y-1==Strecke[i].y) && (Strecke[StreckeZ].x==Strecke[i].x)  && (hasSouth(Strecke[StreckeZ].Gabelung)==1)) {
 				//Analog für Süden
-				Robot_Move(Strecke[i].x,Strecke[i].y);
-				s=i;
+				deltay=Strecke[StreckeZ].y-Strecke[i].y;
+
+				Robot_Move(deltax,deltay);
+				StreckeZ=i;
 				break;}
 		}
 	}
+
 }
 
 
@@ -503,8 +568,6 @@ TASK(OSEK_Main_Task) {
 	/*
 	 * Hauptfunktion des Roboters
 	 */
-	lichtgrenze=Richtung=0;
-	systick_wait_ms(2000);
 	kalibrierung();
 	/*int i=0;
 	while (1) {
@@ -519,13 +582,21 @@ TASK(OSEK_Main_Task) {
 		}
 	}*/
 	Richtung=0;
-	ks=0;
-	pa[ks].x=0;																//Startposition Roboter
-	pa[ks].y=0;
-	Strecke[0].x=pa[ks].x;													//Startpostion in Strecke eintragen
-	Strecke[0].y=pa[ks].y;
+	paZ=0;
+	StreckeZ=0;
+	pa[paZ].x=0;																//Startposition Roboter
+	pa[paZ].y=0;
+	Strecke[StreckeZ].x=pa[paZ].x;													//Startpostion in Strecke eintragen
+	Strecke[StreckeZ].y=pa[paZ].y;
+	Strecke[StreckeZ].Gabelung=16;
+	StreckeZ++;
+	paZ++;
 	Robot_Move(0,1);
+	pa[paZ].x=0;																//Startposition Roboter
+	pa[paZ].y=1;
+	Strecke[StreckeZ].x=pa[paZ].x;													//Startpostion in Strecke eintragen
+	Strecke[StreckeZ].y=pa[paZ].y;
 	suchen();															//Token-Suche aufrufen
 	rueckkehr();														//Rückkehr zum Start aufrufen
-
+	systick_wait_ms(10000);
 }
