@@ -61,11 +61,15 @@ Archive member included because of file (symbol)
 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_dvmd_tls.o)
                               /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_udivsi3.o) (__div0)
 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubdf3.o)
-                              /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(colorsensor.o) (__floatsidf)
+                              build/src/main.o (__adddf3)
 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_muldivdf3.o)
                               /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(colorsensor.o) (__muldf3)
 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_cmpdf2.o)
                               /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(colorsensor.o) (__gtdf2)
+/home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_fixdfsi.o)
+                              build/src/main.o (__fixdfsi)
+/home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubsf3.o)
+                              build/src/main.o (__floatsisf)
 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_muldi3.o)
                               /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(sound.oram) (__muldi3)
 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_divdi3.o)
@@ -346,7 +350,6 @@ Discarded input sections
                 0x00000000       0x58 build/src/main.o
  .text.schongesucht
                 0x00000000       0x60 build/src/main.o
- .text.blinken  0x00000000       0x20 build/src/main.o
  .text          0x00000000        0x0 build/syslib/at91sam7s-gnu/lego_nxt/hw_sys_timer.oram
  .data          0x00000000        0x0 build/syslib/at91sam7s-gnu/lego_nxt/hw_sys_timer.oram
  .bss           0x00000000        0x0 build/syslib/at91sam7s-gnu/lego_nxt/hw_sys_timer.oram
@@ -763,7 +766,6 @@ Discarded input sections
  .bss           0x00000000        0x0 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_modsi3.o)
  .data          0x00000000        0x0 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_dvmd_tls.o)
  .bss           0x00000000        0x0 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_dvmd_tls.o)
- .text          0x00000000      0x430 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubdf3.o)
  .data          0x00000000        0x0 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubdf3.o)
  .bss           0x00000000        0x0 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubdf3.o)
  .text          0x00000000      0x49c /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_muldivdf3.o)
@@ -772,6 +774,10 @@ Discarded input sections
  .text          0x00000000      0x144 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_cmpdf2.o)
  .data          0x00000000        0x0 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_cmpdf2.o)
  .bss           0x00000000        0x0 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_cmpdf2.o)
+ .data          0x00000000        0x0 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_fixdfsi.o)
+ .bss           0x00000000        0x0 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_fixdfsi.o)
+ .data          0x00000000        0x0 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubsf3.o)
+ .bss           0x00000000        0x0 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubsf3.o)
  .text          0x00000000       0x74 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_muldi3.o)
  .data          0x00000000        0x0 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_muldi3.o)
  .bss           0x00000000        0x0 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_muldi3.o)
@@ -1279,7 +1285,7 @@ END GROUP
                 0x0010b9d0                __data_load_start__ = LOADADDR (.data)
                 0x0010ba40                __data_load_end__ = (__data_load_start__ + SIZEOF (.data))
 
-.text           0x0010ba40     0x1dd0
+.text           0x0010ba40     0x2540
                 0x0010ba40                . = ALIGN (0x10)
  *(*.text *.text.* *.glue*)
  .glue_7        0x0010ba40       0x18 linker stubs
@@ -1400,137 +1406,170 @@ END GROUP
  .text.anzeige  0x0010c594       0x8c build/src/main.o
                 0x0010c594                anzeige
  .text.kalibrierung
-                0x0010c620       0x6c build/src/main.o
+                0x0010c620       0x80 build/src/main.o
                 0x0010c620                kalibrierung
  .text.kreuzungerkennen
-                0x0010c68c       0x7c build/src/main.o
-                0x0010c68c                kreuzungerkennen
+                0x0010c6a0       0x7c build/src/main.o
+                0x0010c6a0                kreuzungerkennen
  .text.Robot_GetIntersections
-                0x0010c708       0x74 build/src/main.o
-                0x0010c708                Robot_GetIntersections
+                0x0010c71c       0x74 build/src/main.o
+                0x0010c71c                Robot_GetIntersections
  .text.rueckkehr
-                0x0010c77c      0x104 build/src/main.o
-                0x0010c77c                rueckkehr
- .text.suchen   0x0010c880      0x52c build/src/main.o
-                0x0010c880                suchen
+                0x0010c790      0x104 build/src/main.o
+                0x0010c790                rueckkehr
+ .text.suchen   0x0010c894      0x52c build/src/main.o
+                0x0010c894                suchen
  .text.TaskMainOSEK_Main_Task
-                0x0010cdac       0x90 build/src/main.o
-                0x0010cdac                TaskMainOSEK_Main_Task
+                0x0010cdc0       0x90 build/src/main.o
+                0x0010cdc0                TaskMainOSEK_Main_Task
  .text.ecrobot_set_light_sensor_active
-                0x0010ce3c       0x10 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
-                0x0010ce3c                ecrobot_set_light_sensor_active
+                0x0010ce50       0x10 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
+                0x0010ce50                ecrobot_set_light_sensor_active
  .text.ecrobot_get_light_sensor
-                0x0010ce4c       0x14 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
-                0x0010ce4c                ecrobot_get_light_sensor
+                0x0010ce60       0x14 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
+                0x0010ce60                ecrobot_get_light_sensor
  .text.ecrobot_get_touch_sensor
-                0x0010ce60       0x20 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
-                0x0010ce60                ecrobot_get_touch_sensor
+                0x0010ce74       0x20 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
+                0x0010ce74                ecrobot_get_touch_sensor
  .text.getDistance
-                0x0010ce80       0x20 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
+                0x0010ce94       0x20 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
  .text.ecrobot_get_battery_voltage
-                0x0010cea0        0xc /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
-                0x0010cea0                ecrobot_get_battery_voltage
+                0x0010ceb4        0xc /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
+                0x0010ceb4                ecrobot_get_battery_voltage
  .text.ecrobot_get_button_state
-                0x0010ceac        0xc /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
-                0x0010ceac                ecrobot_get_button_state
+                0x0010cec0        0xc /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
+                0x0010cec0                ecrobot_get_button_state
  .text.ecrobot_init_nxtstate
-                0x0010ceb8       0x28 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
-                0x0010ceb8                ecrobot_init_nxtstate
+                0x0010cecc       0x28 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
+                0x0010cecc                ecrobot_init_nxtstate
  .text.ecrobot_poll_nxtstate
-                0x0010cee0       0x64 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
-                0x0010cee0                ecrobot_poll_nxtstate
+                0x0010cef4       0x64 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
+                0x0010cef4                ecrobot_poll_nxtstate
  .text.ecrobot_setDeviceInitialized
-                0x0010cf44       0x18 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
-                0x0010cf44                ecrobot_setDeviceInitialized
+                0x0010cf58       0x18 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
+                0x0010cf58                ecrobot_setDeviceInitialized
  .text.ecrobot_initDeviceStatus
-                0x0010cf5c        0xc /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
-                0x0010cf5c                ecrobot_initDeviceStatus
+                0x0010cf70        0xc /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
+                0x0010cf70                ecrobot_initDeviceStatus
  .text.ecrobot_bmp2lcd
-                0x0010cf68      0x1c8 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
-                0x0010cf68                ecrobot_bmp2lcd
+                0x0010cf7c      0x1c8 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
+                0x0010cf7c                ecrobot_bmp2lcd
  .text.ecrobot_status_monitor
-                0x0010d130      0x138 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
-                0x0010d130                ecrobot_status_monitor
+                0x0010d144      0x138 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
+                0x0010d144                ecrobot_status_monitor
  .text.ecrobot_sound_tone
-                0x0010d268        0xc /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
-                0x0010d268                ecrobot_sound_tone
+                0x0010d27c        0xc /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
+                0x0010d27c                ecrobot_sound_tone
  .text.StartupHook
-                0x0010d274        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(osek_hook.o)
-                0x0010d274                StartupHook
+                0x0010d288        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(osek_hook.o)
+                0x0010d288                StartupHook
  .text.PreTaskHook
-                0x0010d278        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(osek_hook.o)
-                0x0010d278                PreTaskHook
+                0x0010d28c        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(osek_hook.o)
+                0x0010d28c                PreTaskHook
  .text.PostTaskHook
-                0x0010d27c        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(osek_hook.o)
-                0x0010d27c                PostTaskHook
- .text          0x0010d280       0x8c /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_udivsi3.o)
-                0x0010d280                __udivsi3
-                0x0010d280                __aeabi_uidiv
-                0x0010d2fc                __aeabi_uidivmod
- .text          0x0010d30c       0xa4 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_divsi3.o)
-                0x0010d30c                __aeabi_idiv
-                0x0010d30c                __divsi3
-                0x0010d3a0                __aeabi_idivmod
- .text          0x0010d3b0       0xc8 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_umodsi3.o)
-                0x0010d3b0                __umodsi3
- .text          0x0010d478       0xd8 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_modsi3.o)
-                0x0010d478                __modsi3
- .text          0x0010d550        0x4 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_dvmd_tls.o)
-                0x0010d550                __aeabi_ldiv0
-                0x0010d550                __div0
-                0x0010d550                __aeabi_idiv0
- .text          0x0010d554       0x94 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-memset.o)
-                0x0010d554                memset
- .text          0x0010d5e8       0x10 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strcpy.o)
-                0x0010d5e8                strcpy
- .text          0x0010d5f8       0x10 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strlen.o)
-                0x0010d5f8                strlen
-                0x0010d610                . = ALIGN (0x10)
- *fill*         0x0010d608        0x8 00
+                0x0010d290        0x4 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(osek_hook.o)
+                0x0010d290                PostTaskHook
+ .text          0x0010d294       0x8c /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_udivsi3.o)
+                0x0010d294                __udivsi3
+                0x0010d294                __aeabi_uidiv
+                0x0010d310                __aeabi_uidivmod
+ .text          0x0010d320       0xa4 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_divsi3.o)
+                0x0010d320                __aeabi_idiv
+                0x0010d320                __divsi3
+                0x0010d3b4                __aeabi_idivmod
+ .text          0x0010d3c4       0xc8 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_umodsi3.o)
+                0x0010d3c4                __umodsi3
+ .text          0x0010d48c       0xd8 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_modsi3.o)
+                0x0010d48c                __modsi3
+ .text          0x0010d564        0x4 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_dvmd_tls.o)
+                0x0010d564                __aeabi_ldiv0
+                0x0010d564                __div0
+                0x0010d564                __aeabi_idiv0
+ .text          0x0010d568      0x430 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubdf3.o)
+                0x0010d568                __aeabi_drsub
+                0x0010d570                __aeabi_dsub
+                0x0010d570                __subdf3
+                0x0010d574                __adddf3
+                0x0010d574                __aeabi_dadd
+                0x0010d884                __aeabi_ui2d
+                0x0010d884                __floatunsidf
+                0x0010d8ac                __floatsidf
+                0x0010d8ac                __aeabi_i2d
+                0x0010d8d8                __extendsfdf2
+                0x0010d8d8                __aeabi_f2d
+                0x0010d918                __aeabi_ul2d
+                0x0010d918                __floatundidf
+                0x0010d92c                __floatdidf
+                0x0010d92c                __aeabi_l2d
+ .text          0x0010d998       0x5c /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_fixdfsi.o)
+                0x0010d998                __fixdfsi
+                0x0010d998                __aeabi_d2iz
+ .text          0x0010d9f4      0x2ac /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubsf3.o)
+                0x0010d9f4                __aeabi_frsub
+                0x0010d9fc                __subsf3
+                0x0010d9fc                __aeabi_fsub
+                0x0010da00                __aeabi_fadd
+                0x0010da00                __addsf3
+                0x0010dbbc                __aeabi_ui2f
+                0x0010dbbc                __floatunsisf
+                0x0010dbc4                __aeabi_i2f
+                0x0010dbc4                __floatsisf
+                0x0010dbe4                __floatundisf
+                0x0010dbe4                __aeabi_ul2f
+                0x0010dbf4                __floatdisf
+                0x0010dbf4                __aeabi_l2f
+ .text          0x0010dca0       0x94 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-memset.o)
+                0x0010dca0                memset
+ .text          0x0010dd34       0x10 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strcpy.o)
+                0x0010dd34                strcpy
+ .text          0x0010dd44       0x10 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strlen.o)
+                0x0010dd44                strlen
+                0x0010dd60                . = ALIGN (0x10)
+ *fill*         0x0010dd54        0xc 00
  *(*.rodata *.rodata.*)
  .rodata.tnum_task
-                0x0010d610        0x1 build/./kernel_cfg.o
-                0x0010d610                tnum_task
- *fill*         0x0010d611        0x3 00
+                0x0010dd60        0x1 build/./kernel_cfg.o
+                0x0010dd60                tnum_task
+ *fill*         0x0010dd61        0x3 00
  .rodata.tinib_stksz
-                0x0010d614        0x4 build/./kernel_cfg.o
-                0x0010d614                tinib_stksz
+                0x0010dd64        0x4 build/./kernel_cfg.o
+                0x0010dd64                tinib_stksz
  .rodata.tinib_inipri
-                0x0010d618        0x4 build/./kernel_cfg.o
-                0x0010d618                tinib_inipri
+                0x0010dd68        0x4 build/./kernel_cfg.o
+                0x0010dd68                tinib_inipri
  .rodata.tinib_stk
-                0x0010d61c        0x4 build/./kernel_cfg.o
-                0x0010d61c                tinib_stk
+                0x0010dd6c        0x4 build/./kernel_cfg.o
+                0x0010dd6c                tinib_stk
  .rodata.tnum_exttask
-                0x0010d620        0x1 build/./kernel_cfg.o
-                0x0010d620                tnum_exttask
- *fill*         0x0010d621        0x3 00
+                0x0010dd70        0x1 build/./kernel_cfg.o
+                0x0010dd70                tnum_exttask
+ *fill*         0x0010dd71        0x3 00
  .rodata.tinib_exepri
-                0x0010d624        0x4 build/./kernel_cfg.o
-                0x0010d624                tinib_exepri
+                0x0010dd74        0x4 build/./kernel_cfg.o
+                0x0010dd74                tinib_exepri
  .rodata.tinib_autoact
-                0x0010d628        0x4 build/./kernel_cfg.o
-                0x0010d628                tinib_autoact
+                0x0010dd78        0x4 build/./kernel_cfg.o
+                0x0010dd78                tinib_autoact
  .rodata.tinib_task
-                0x0010d62c        0x4 build/./kernel_cfg.o
-                0x0010d62c                tinib_task
+                0x0010dd7c        0x4 build/./kernel_cfg.o
+                0x0010dd7c                tinib_task
  .rodata.str1.1
-                0x0010d630       0x6c build/ecrobot_base.o
+                0x0010dd80       0x6c build/ecrobot_base.o
  .rodata.exec_addr
-                0x0010d69c        0x4 build/ecrobot_base.o
-                0x0010d69c                exec_addr
+                0x0010ddec        0x4 build/ecrobot_base.o
+                0x0010ddec                exec_addr
  .rodata.str1.1
-                0x0010d6a0       0xc7 build/src/main.o
- *fill*         0x0010d767        0x1 00
+                0x0010ddf0       0xc7 build/src/main.o
+ *fill*         0x0010deb7        0x1 00
  .rodata.str1.4
-                0x0010d768       0x84 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
- *fill*         0x0010d7ec        0x4 00
+                0x0010deb8       0x84 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
+ *fill*         0x0010df3c        0x4 00
  .rodata.str1.4.stub
-                0x0010d7f0       0x20 linker stubs
-                0x0010d810                . = ALIGN (0x10)
- *fill*         0x0010d810        0x0 00
+                0x0010df40       0x40 linker stubs
+                0x0010df80                . = ALIGN (0x10)
+ *fill*         0x0010df80        0x0 00
  *(*.gnu.linkonce.* .gcc_except_table)
-                0x0010d810                . = ALIGN (0x10)
+                0x0010df80                . = ALIGN (0x10)
 
 .vfp11_veneer   0x00203380        0x0
  .vfp11_veneer  0x00000000        0x0 linker stubs
@@ -1538,17 +1577,17 @@ END GROUP
 .v4_bx          0x00203380        0x0
  .v4_bx         0x00000000        0x0 linker stubs
 
-.tors           0x0010d810        0x0
-                0x0010d810                . = ALIGN (0x10)
-                0x0010d810                __ctor_begin = .
+.tors           0x0010df80        0x0
+                0x0010df80                . = ALIGN (0x10)
+                0x0010df80                __ctor_begin = .
  *(*.ctors*)
-                0x0010d810                __ctor_end = .
-                0x0010d810                . = ALIGN (0x10)
-                0x0010d810                __dtor_begin = .
+                0x0010df80                __ctor_end = .
+                0x0010df80                . = ALIGN (0x10)
+                0x0010df80                __dtor_begin = .
  *(*.dtors*)
-                0x0010d810                __dtor_end = .
-                0x0010d810                . = ALIGN (0x10)
-                0x0010d810                __rom_end__ = __dtor_end
+                0x0010df80                __dtor_end = .
+                0x0010df80                . = ALIGN (0x10)
+                0x0010df80                __rom_end__ = __dtor_end
 
 .bss            0x00203380     0x1fb0
  *(*.bss *.bss.*)
@@ -1857,25 +1896,29 @@ OUTPUT(main_rom.elf elf32-littlearm)
  .ARM.attributes
                 0x000001f0       0x10 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_cmpdf2.o)
  .ARM.attributes
-                0x00000200       0x10 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_muldi3.o)
+                0x00000200       0x10 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_fixdfsi.o)
  .ARM.attributes
-                0x00000210       0x10 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_divdi3.o)
+                0x00000210       0x10 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubsf3.o)
  .ARM.attributes
-                0x00000220       0x10 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_clzsi2.o)
+                0x00000220       0x10 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_muldi3.o)
  .ARM.attributes
-                0x00000230       0x10 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-memcpy.o)
+                0x00000230       0x10 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_divdi3.o)
  .ARM.attributes
-                0x00000240       0x10 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-memset.o)
+                0x00000240       0x10 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_clzsi2.o)
  .ARM.attributes
-                0x00000250       0x10 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strcmp.o)
+                0x00000250       0x10 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-memcpy.o)
  .ARM.attributes
-                0x00000260       0x10 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strcpy.o)
+                0x00000260       0x10 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-memset.o)
  .ARM.attributes
-                0x00000270       0x10 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strlen.o)
+                0x00000270       0x10 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strcmp.o)
  .ARM.attributes
-                0x00000280       0x10 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strncpy.o)
+                0x00000280       0x10 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strcpy.o)
  .ARM.attributes
-                0x00000290       0x10 build/nxtvm/platform/nxt/vectors.o
+                0x00000290       0x10 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strlen.o)
+ .ARM.attributes
+                0x000002a0       0x10 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strncpy.o)
+ .ARM.attributes
+                0x000002b0       0x10 build/nxtvm/platform/nxt/vectors.o
 
 .debug_frame    0x00000000      0x1fc
  .debug_frame   0x00000000       0x28 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_udivsi3.o)
@@ -1891,7 +1934,7 @@ OUTPUT(main_rom.elf elf32-littlearm)
  .debug_frame   0x000001ac       0x20 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strlen.o)
  .debug_frame   0x000001cc       0x30 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strncpy.o)
 
-.debug_line     0x00000000      0xe85
+.debug_line     0x00000000     0x1040
  .debug_line    0x00000000       0x8e /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_udivsi3.o)
  .debug_line    0x0000008e       0x9a /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_divsi3.o)
  .debug_line    0x00000128       0x86 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_umodsi3.o)
@@ -1900,17 +1943,19 @@ OUTPUT(main_rom.elf elf32-littlearm)
  .debug_line    0x000002b5      0x180 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubdf3.o)
  .debug_line    0x00000435      0x195 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_muldivdf3.o)
  .debug_line    0x000005ca       0xc3 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_cmpdf2.o)
- .debug_line    0x0000068d       0x7e /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_muldi3.o)
- .debug_line    0x0000070b       0xe4 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_divdi3.o)
- .debug_line    0x000007ef       0x85 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_clzsi2.o)
- .debug_line    0x00000874      0x141 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-memcpy.o)
- .debug_line    0x000009b5      0x13c /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-memset.o)
- .debug_line    0x00000af1       0xbb /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strcmp.o)
- .debug_line    0x00000bac       0xbb /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strcpy.o)
- .debug_line    0x00000c67      0x108 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strlen.o)
- .debug_line    0x00000d6f      0x116 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strncpy.o)
+ .debug_line    0x0000068d       0x8d /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_fixdfsi.o)
+ .debug_line    0x0000071a      0x12e /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubsf3.o)
+ .debug_line    0x00000848       0x7e /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_muldi3.o)
+ .debug_line    0x000008c6       0xe4 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_divdi3.o)
+ .debug_line    0x000009aa       0x85 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_clzsi2.o)
+ .debug_line    0x00000a2f      0x141 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-memcpy.o)
+ .debug_line    0x00000b70      0x13c /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-memset.o)
+ .debug_line    0x00000cac       0xbb /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strcmp.o)
+ .debug_line    0x00000d67       0xbb /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strcpy.o)
+ .debug_line    0x00000e22      0x108 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strlen.o)
+ .debug_line    0x00000f2a      0x116 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strncpy.o)
 
-.debug_info     0x00000000     0x1458
+.debug_info     0x00000000     0x15ba
  .debug_info    0x00000000       0xb2 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_udivsi3.o)
  .debug_info    0x000000b2       0xb2 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_divsi3.o)
  .debug_info    0x00000164       0xb2 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_umodsi3.o)
@@ -1919,17 +1964,19 @@ OUTPUT(main_rom.elf elf32-littlearm)
  .debug_info    0x0000037a       0xb1 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubdf3.o)
  .debug_info    0x0000042b       0xb1 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_muldivdf3.o)
  .debug_info    0x000004dc       0xb1 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_cmpdf2.o)
- .debug_info    0x0000058d      0x20e /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_muldi3.o)
- .debug_info    0x0000079b      0x669 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_divdi3.o)
- .debug_info    0x00000e04       0xb2 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_clzsi2.o)
- .debug_info    0x00000eb6      0x13e /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-memcpy.o)
- .debug_info    0x00000ff4      0x111 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-memset.o)
- .debug_info    0x00001105       0xaf /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strcmp.o)
- .debug_info    0x000011b4       0xb7 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strcpy.o)
- .debug_info    0x0000126b       0xc9 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strlen.o)
- .debug_info    0x00001334      0x124 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strncpy.o)
+ .debug_info    0x0000058d       0xb1 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_fixdfsi.o)
+ .debug_info    0x0000063e       0xb1 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubsf3.o)
+ .debug_info    0x000006ef      0x20e /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_muldi3.o)
+ .debug_info    0x000008fd      0x669 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_divdi3.o)
+ .debug_info    0x00000f66       0xb2 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_clzsi2.o)
+ .debug_info    0x00001018      0x13e /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-memcpy.o)
+ .debug_info    0x00001156      0x111 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-memset.o)
+ .debug_info    0x00001267       0xaf /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strcmp.o)
+ .debug_info    0x00001316       0xb7 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strcpy.o)
+ .debug_info    0x000013cd       0xc9 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strlen.o)
+ .debug_info    0x00001496      0x124 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strncpy.o)
 
-.debug_abbrev   0x00000000      0x674
+.debug_abbrev   0x00000000      0x69c
  .debug_abbrev  0x00000000       0x14 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_udivsi3.o)
  .debug_abbrev  0x00000014       0x14 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_divsi3.o)
  .debug_abbrev  0x00000028       0x14 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_umodsi3.o)
@@ -1938,17 +1985,19 @@ OUTPUT(main_rom.elf elf32-littlearm)
  .debug_abbrev  0x00000064       0x14 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubdf3.o)
  .debug_abbrev  0x00000078       0x14 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_muldivdf3.o)
  .debug_abbrev  0x0000008c       0x14 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_cmpdf2.o)
- .debug_abbrev  0x000000a0       0xf5 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_muldi3.o)
- .debug_abbrev  0x00000195      0x169 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_divdi3.o)
- .debug_abbrev  0x000002fe       0x14 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_clzsi2.o)
- .debug_abbrev  0x00000312       0xa0 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-memcpy.o)
- .debug_abbrev  0x000003b2       0xa1 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-memset.o)
- .debug_abbrev  0x00000453       0x76 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strcmp.o)
- .debug_abbrev  0x000004c9       0x76 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strcpy.o)
- .debug_abbrev  0x0000053f       0x92 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strlen.o)
- .debug_abbrev  0x000005d1       0xa3 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strncpy.o)
+ .debug_abbrev  0x000000a0       0x14 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_fixdfsi.o)
+ .debug_abbrev  0x000000b4       0x14 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubsf3.o)
+ .debug_abbrev  0x000000c8       0xf5 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_muldi3.o)
+ .debug_abbrev  0x000001bd      0x169 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_divdi3.o)
+ .debug_abbrev  0x00000326       0x14 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_clzsi2.o)
+ .debug_abbrev  0x0000033a       0xa0 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-memcpy.o)
+ .debug_abbrev  0x000003da       0xa1 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-memset.o)
+ .debug_abbrev  0x0000047b       0x76 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strcmp.o)
+ .debug_abbrev  0x000004f1       0x76 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strcpy.o)
+ .debug_abbrev  0x00000567       0x92 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strlen.o)
+ .debug_abbrev  0x000005f9       0xa3 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strncpy.o)
 
-.debug_aranges  0x00000000      0x220
+.debug_aranges  0x00000000      0x260
  .debug_aranges
                 0x00000000       0x20 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_udivsi3.o)
  .debug_aranges
@@ -1966,23 +2015,27 @@ OUTPUT(main_rom.elf elf32-littlearm)
  .debug_aranges
                 0x000000e0       0x20 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_cmpdf2.o)
  .debug_aranges
-                0x00000100       0x20 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_muldi3.o)
+                0x00000100       0x20 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_fixdfsi.o)
  .debug_aranges
-                0x00000120       0x20 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_divdi3.o)
+                0x00000120       0x20 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubsf3.o)
  .debug_aranges
-                0x00000140       0x20 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_clzsi2.o)
+                0x00000140       0x20 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_muldi3.o)
  .debug_aranges
-                0x00000160       0x20 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-memcpy.o)
+                0x00000160       0x20 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_divdi3.o)
  .debug_aranges
-                0x00000180       0x20 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-memset.o)
+                0x00000180       0x20 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_clzsi2.o)
  .debug_aranges
-                0x000001a0       0x20 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strcmp.o)
+                0x000001a0       0x20 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-memcpy.o)
  .debug_aranges
-                0x000001c0       0x20 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strcpy.o)
+                0x000001c0       0x20 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-memset.o)
  .debug_aranges
-                0x000001e0       0x20 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strlen.o)
+                0x000001e0       0x20 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strcmp.o)
  .debug_aranges
-                0x00000200       0x20 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strncpy.o)
+                0x00000200       0x20 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strcpy.o)
+ .debug_aranges
+                0x00000220       0x20 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strlen.o)
+ .debug_aranges
+                0x00000240       0x20 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/../../../../arm-elf/lib/thumb/interwork/libc.a(lib_a-strncpy.o)
 
 .debug_loc      0x00000000      0xcaf
  .debug_loc     0x00000000      0x161 /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_muldi3.o)
@@ -2093,9 +2146,12 @@ TerminateTask                                     build/kernel/task_manage.o
 TokenZ                                            build/src/main.o
 WaitEvent                                         build/kernel/event.o
 __adddf3                                          /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubdf3.o)
+                                                  build/src/main.o
+__addsf3                                          /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubsf3.o)
 __aeabi_cdcmpeq                                   /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_cmpdf2.o)
 __aeabi_cdcmple                                   /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_cmpdf2.o)
 __aeabi_cdrcmple                                  /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_cmpdf2.o)
+__aeabi_d2iz                                      /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_fixdfsi.o)
 __aeabi_dadd                                      /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubdf3.o)
 __aeabi_dcmpeq                                    /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_cmpdf2.o)
 __aeabi_dcmpge                                    /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_cmpdf2.o)
@@ -2107,16 +2163,23 @@ __aeabi_dmul                                      /home/robo/nxtOSEK/gnuarm/lib/
 __aeabi_drsub                                     /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubdf3.o)
 __aeabi_dsub                                      /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubdf3.o)
 __aeabi_f2d                                       /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubdf3.o)
+__aeabi_fadd                                      /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubsf3.o)
+__aeabi_frsub                                     /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubsf3.o)
+__aeabi_fsub                                      /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubsf3.o)
 __aeabi_i2d                                       /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubdf3.o)
+__aeabi_i2f                                       /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubsf3.o)
 __aeabi_idiv                                      /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_divsi3.o)
 __aeabi_idiv0                                     /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_dvmd_tls.o)
 __aeabi_idivmod                                   /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_divsi3.o)
 __aeabi_l2d                                       /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubdf3.o)
+__aeabi_l2f                                       /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubsf3.o)
 __aeabi_ldiv0                                     /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_dvmd_tls.o)
 __aeabi_ui2d                                      /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubdf3.o)
+__aeabi_ui2f                                      /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubsf3.o)
 __aeabi_uidiv                                     /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_udivsi3.o)
 __aeabi_uidivmod                                  /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_udivsi3.o)
 __aeabi_ul2d                                      /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubdf3.o)
+__aeabi_ul2f                                      /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubsf3.o)
 __bss_end__                                       build/ecrobot_init.o
 __bss_start__                                     build/ecrobot_init.o
 __call_posttaskhook_from_arm                      linker stubs
@@ -2145,11 +2208,19 @@ __dtor_begin                                      build/ecrobot_base.o
 __dtor_end                                        build/ecrobot_base.o
 __eqdf2                                           /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_cmpdf2.o)
 __extendsfdf2                                     /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubdf3.o)
+                                                  build/src/main.o
+__fixdfsi                                         /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_fixdfsi.o)
+                                                  build/src/main.o
 __floatdidf                                       /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubdf3.o)
+__floatdisf                                       /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubsf3.o)
 __floatsidf                                       /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubdf3.o)
                                                   /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(colorsensor.o)
+__floatsisf                                       /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubsf3.o)
+                                                  build/src/main.o
 __floatundidf                                     /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubdf3.o)
+__floatundisf                                     /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubsf3.o)
 __floatunsidf                                     /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubdf3.o)
+__floatunsisf                                     /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubsf3.o)
 __gedf2                                           /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_cmpdf2.o)
 __gtdf2                                           /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_cmpdf2.o)
                                                   /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(colorsensor.o)
@@ -2169,6 +2240,7 @@ __ramtext_ram_start__                             build/ecrobot_init.o
 __stack_end__                                     build/ecrobot_init.o
 __stack_start__                                   build/ecrobot_init.o
 __subdf3                                          /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubdf3.o)
+__subsf3                                          /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_arm_addsubsf3.o)
 __system_stack__                                  build/config/at91sam7s-gnu/cpu_support.oram
                                                   build/ecrobot_init.o
 __udivsi3                                         /home/robo/nxtOSEK/gnuarm/lib/gcc/arm-elf/4.4.7/thumb/interwork/libgcc.a(_udivsi3.o)
@@ -2261,7 +2333,6 @@ appmode                                           build/kernel/task.o
 avr_brainwash_string                              /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_avr.oram)
 battery_voltage                                   /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(nxt_avr.oram)
                                                   /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
-blinken                                           build/src/main.o
 bt_clear_arm7_cmd                                 /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(bt.oram)
                                                   build/ecrobot_bluetooth.o
 bt_get_mode                                       /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(bt.oram)
@@ -2497,7 +2568,6 @@ ecrobot_send_usb                                  /home/robo/nxtOSEK/nxtOSEK/ecr
 ecrobot_setDeviceInitialized                      /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
                                                   build/ecrobot.o
 ecrobot_set_RCX_power_source                      /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
-                                                  build/src/main.o
 ecrobot_set_bt_device_name                        build/ecrobot_bluetooth.o
 ecrobot_set_bt_factory_settings                   build/ecrobot_bluetooth.o
 ecrobot_set_light_sensor_active                   /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
@@ -2518,7 +2588,6 @@ ecrobot_sound_wav                                 /home/robo/nxtOSEK/nxtOSEK/ecr
 ecrobot_status_monitor                            /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
                                                   build/src/main.o
 ecrobot_term_RCX_power_source                     /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
-                                                  build/src/main.o
 ecrobot_term_bt_connection                        build/ecrobot_bluetooth.o
 ecrobot_term_i2c                                  /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)
 ecrobot_term_nxtcolorsensor                       /home/robo/nxtOSEK/nxtOSEK/ecrobot/../ecrobot/libecrobot.a(ecrobot_interface.o)

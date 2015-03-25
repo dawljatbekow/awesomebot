@@ -1,14 +1,14 @@
 #include "../h/main.h"
 
 
-int knoten;				//Zählen der Knoten
+int knoten;					//Zählen der Knoten
 int kreuzung[3];				//Array mit {Links, Rechts, Geradeaus}-Codierung
 int lichtgrenze;
 
 int Richtung;
 
 typedef struct Kreuzung{				//Datentyp indem Punkt und zugehöriger Kreuzungstype
-	int Gabelung;						//gespeichert werden können
+	int Gabelung;					//gespeichert werden können
 	int x;
 	int y;
 }Kreuzung;
@@ -139,15 +139,15 @@ void ecrobot_device_terminate(void) {
 
 void kalibrierung(){
 	ecrobot_status_monitor("Kalibrierung");
-	float temp;
-	lichtgrenze=Richtung=0;
+	float temp;											//Zur genauen Lichtwertberechnung wird der float Typ verwendet
+	lichtgrenze=0;
 	systick_wait_ms(2000);
 	ecrobot_set_light_sensor_active(NXT_PORT_S4);		//Lichtsensor initiallisieren
-	int a=ecrobot_get_light_sensor(NXT_PORT_S4);
-	richtiglenken(20,30);
-	int b=ecrobot_get_light_sensor(NXT_PORT_S4);
-	richtiglenken(-20,30);
-	temp=((1*a+2*b)/3);
+	int a=ecrobot_get_light_sensor(NXT_PORT_S4);		//Lichtwert des schwarzen Streifens wird erfasst
+	richtiglenken(20,30);								//Drehung von der Linie weg
+	int b=ecrobot_get_light_sensor(NXT_PORT_S4);		//Lichtwert der Unterlage
+	richtiglenken(-20,30);								//Anfangsposition
+	temp=((1*a+2*b)/3);									//Berechnung der Grenze mit gewichtung 2 zu 1
 	lichtgrenze=temp+0.5;
 	ecrobot_status_monitor("Ich bin bereit");
 }
@@ -167,12 +167,11 @@ void fahren(int v){
 	/* Funktion zum Vorfahren zur ungefähren Mitte des Knotens. */
 	int a=0;
 	nxt_motor_set_count(NXT_PORT_B, 0);
-	while(a<190){
+	while(a<190){									//Roboter fährt von Ende der Linie zur Mitte des Knotens
 		nxt_motor_set_speed(NXT_PORT_C, v, 1);
 		nxt_motor_set_speed(NXT_PORT_B, v, 1);
 		a=nxt_motor_get_count(NXT_PORT_B);
 	}
-	//systick_wait_ms(1000);						//nach einer Sekunde Fahren ist man ungefähr in der Mitte des Knotens
 	stop();
 }
 
@@ -180,12 +179,12 @@ void fahren(int v){
 void folgen(int v, int lenken_v){
 	/* Funktion zum Folgen der schwarzen Linie, aendern der Knotenvariable und erkennen eines Gegenstandes.
 	 * Übergeben werden die Fahrgeschwindigkeit (v) und die Lenkgeschwindigkeit (lenk_v) */
-	int a= ecrobot_get_light_sensor(NXT_PORT_S4);		//Lichtwert auslesen
+	int a= ecrobot_get_light_sensor(NXT_PORT_S4);		//Lichtwert einlesen
 	U8 touch1=0, touch2=0;
 
 	while(knoten==0){									//Solange man nicht am Knoten ist, wiederholen der Wegfolgenroutine
 
-		while(a>lichtgrenze && (touch1==0 && touch2==0)){						//fahren mit gesetzter Geschwindigkeit
+		while(a>lichtgrenze && (touch1==0 && touch2==0)){		//fahren mit gesetzter Geschwindigkeit
 			touch1=ecrobot_get_touch_sensor(NXT_PORT_S1);//faehrt solange kein Gegenstand im Weg ist
 			touch2=ecrobot_get_touch_sensor(NXT_PORT_S2);
 			nxt_motor_set_speed(NXT_PORT_C, v, 1);		//bei gleichzeitigem Abtasten der Linie
@@ -194,34 +193,32 @@ void folgen(int v, int lenken_v){
 
 		}
 		stop();
-		if(touch1>0 || touch2>0){									//Routine nach Erkennung eines Gegenstandes
+		if(touch1>0 || touch2>0){						//Routine nach Erkennung eines Gegenstandes
 			ecrobot_sound_tone(220, 1000, 20);			//Ausgabe eines vorgeschriebenen Tons
 			stop();
-			systick_wait_ms(10000);	//warte 10s auf entnahme des Gegenstandes
-
-			TokenZ++;								//Speicherung des Gegenstandes
+			systick_wait_ms(10000);				//warte 10s auf Entnahme des Gegenstandes
+			TokenZ++;						//Hochzählen des Token Zählers
 			touch1 = touch2 = 0;
 		}
 		stop();											//bei Verlust der Linie oder Gegenstand stoppen
 
-		int b=0;										//Linie wird gesucht durch Auslenkung um 20 LE
-		while(b<18 && a<=lichtgrenze ){							//nach rechts
-			touch1=ecrobot_get_touch_sensor(NXT_PORT_S1);//faehrt solange kein Gegenstand im Weg ist
+		int b=0;										//Linie wird gesucht durch Auslenkung um 18 LE nach rechts
+		while(b<18 && a<=lichtgrenze ){
+			touch1=ecrobot_get_touch_sensor(NXT_PORT_S1); //Tokenprüfung wird auch bei der Liniensuche durchgeführt
 			touch2=ecrobot_get_touch_sensor(NXT_PORT_S2);
 			richtiglenken(2, lenken_v);
 			a = ecrobot_get_light_sensor(NXT_PORT_S4);
 			if(touch1>0 || touch2>0){									//Routine nach Erkennung eines Gegenstandes
 						ecrobot_sound_tone(220, 1000, 20);			//Ausgabe eines vorgeschriebenen Tons
 						stop();
-						systick_wait_ms(10000);	//warte 10s auf entnahme des Gegenstandes
-
-						TokenZ++;								//Speicherung des Gegenstandes
+						systick_wait_ms(10000);			//warte 10s auf entnahme des Gegenstandes
+						TokenZ++;
 						touch1 = touch2 = 0;
 					}
 			b=b+2;
 			}
 		b=0;
-		while(b<42 && a<=lichtgrenze ){							//dann um 40LE nach links
+		while(b<42 && a<=lichtgrenze ){						//Liniensuche um 42LE nach links
 			touch1=ecrobot_get_touch_sensor(NXT_PORT_S1);//faehrt solange kein Gegenstand im Weg ist
 			touch2=ecrobot_get_touch_sensor(NXT_PORT_S2);
 			richtiglenken(-2, lenken_v);
@@ -237,15 +234,12 @@ void folgen(int v, int lenken_v){
 			b=b+2;
 		}
 
-
-
-		if (a<lichtgrenze){										//Wenn Linie nicht gefunden wird, dann muss es ein Knoten sein
+		if (a<lichtgrenze){			//Wenn Linie nicht gefunden wird, dann muss es ein Knoten sein
 			knoten=1;
-
 		}
 	}
 	orientierung(lenken_v);				//bei erreichtem Knoten wird der Roboter gerade gestellt und
-	fahren(35);							//ungefair zur Mitte des Knotens bewegt
+	fahren(35);						//ungefair zur Mitte des Knotens bewegt
 }
 
 void fahre_richtung(int r){
