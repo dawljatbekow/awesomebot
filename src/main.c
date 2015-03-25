@@ -1,102 +1,86 @@
 #include "../h/main.h"
 
 
-int knoten;									//Zaehlen der Knoten
-int kreuzung[3];							//Array mit {Links, Rechts, Geradeaus} kodierung
+int knoten;				//Zählen der Knoten
+int kreuzung[3];				//Array mit {Links, Rechts, Geradeaus}-Codierung
 int lichtgrenze;
 
 int Richtung;
 
-typedef struct Kreuzung{				 //Datentyp indem Punkt und zugehöriger Kreuzungstype
-	int Gabelung;						 //gespeichert werden können
+typedef struct Kreuzung{				//Datentyp indem Punkt und zugehöriger Kreuzungstype
+	int Gabelung;						//gespeichert werden können
 	int x;
 	int y;
 }Kreuzung;
 
-typedef struct Koordinaten{ 			 //Datentyp für Kreuzungen und Kanten
-	int x; 							 //Kanten bekommen die Koordinaten zwischen den Kreuzungen
+typedef struct Koordinaten{ 		   	 //Datentyp für Kreuzungen und Kanten
+	int x; 								 //Kanten bekommen die Koordinaten zwischen den Kreuzungen
 	int y;
 }Koordinaten;
 
-struct Kreuzung pa[147];                  //Speichert alle besuchten Knoten
-struct Kreuzung Strecke[147];         //Aufzeichnung von Kreuzungen für den Rückweg
-struct Koordinaten gesKnoten[49];        //Speicher alle nicht besuchte Punkte Punkte
-int paZ; 								 //Zähler f�r pa
-int StreckeZ;									 //Zähler für Strecke
-int TokenZ;									 //Zähler für Token(Gegenstände)
+struct Kreuzung pa[147];			//Speichert alle besuchten Knoten
+struct Kreuzung Strecke[147];				//Aufzeichnung von Kreuzungen für den Rückweg
+struct Koordinaten gesKnoten[49];				//Speicher alle nicht besuchte Punkte Punkte
+int paZ; 				//Zähler für pa
+int StreckeZ;				//Zähler für Strecke
+int TokenZ=0;				//Zähler für Token(Gegenstände)
 int gefundeneKnotenZ;
-int AWege;								 //Zähler für gefundene unbenutzte Wege
+int AWege;				//Zähler für gefundene unbenutzte Wege
 int AgesPunkte;
 
 
 void stop(){
-	/*
-	 * Funktion zum stoppen der Motoren
-	 */
+	/* Funktion zum Stoppen der Motoren  */
 	nxt_motor_set_speed(NXT_PORT_C, 0, 1);
 	nxt_motor_set_speed(NXT_PORT_B, 0, 1);
 }
 
-void blinken(U8 port_id){
-	ecrobot_set_RCX_power_source(port_id);
-	systick_wait_ms(10);
-	ecrobot_term_RCX_power_source(port_id);
-}
-
 void lenken(U32 n, int s, int v){
-	/*
-	 * Funktion beschreibt die Ansteuerung der einzelnen Motoren
-	 * uebergeben wird Port des Motors (n), die gewollte Umdrechung des Rades (s)
-	 * und die Lenkgeschwindigkeit
-	 */
+	/* Funktion beschreibt die Ansteuerung der einzelnen Motoren.
+	 * Übergeben wird der Port des Motors (n), die gewollte Umdrechung des Rades (s)
+	 * und die Lenkgeschwindigkeit*/
 	int b=0;
-	nxt_motor_set_count(n, 0);					//Count des Rades wird Null gesetzt
-	if(s<0){									//Fallunterscheidung fuer Richtung (rechts/links)
+	nxt_motor_set_count(n, 0);				//Count des Rades wird Null gesetzt
+	if(s<0){				//Fallunterscheidung fuer Richtung (rechts/links)
 		while (b>s){
-			nxt_motor_set_speed(n, -v, 1);		//Initiallisieren des Motors mit Geschw. (v)
-			b=nxt_motor_get_count(n);			//Abtasten des Counts
+			nxt_motor_set_speed(n, -v, 1);				//Initiallisieren des Motors mit Geschw. (v)
+			b=nxt_motor_get_count(n);				//Abtasten des Counts
 		}
 	}
 	else{
 		while (b<s){
-			nxt_motor_set_speed(n, v, 1);		//wie oben
+			nxt_motor_set_speed(n, v, 1);				//analog zu oben
 			b=nxt_motor_get_count(n);
 		}
 	}
 }
 
 void richtiglenken(int s, int v){
-	/*
-	 * Geschmeidigere Lenkfunktion
-	 * uebergeben wird die gewollte Umdrehung des Rades (s)
-	 * und die Lenkgeschwindigkeit (v)
-	 * Benutzt wird die einfache Lenkfunktion
-	 */
+	/* Geschmeidigere Lenkfunktion
+	 * Üebergeben wird die gewollte Umdrehung des Rades (s) und die Lenkgeschwindigkeit (v).
+	 * Benutzt wird die einfache Lenkfunktion.*/
 	int i=0;
-	if (s>0){									//Fallunterscheidung bez. der Lenkrichtung
-		while (i<=s){							//Auslenkung beider Raeder durch gleichmaessige
-				lenken(NXT_PORT_C, 2, v);		//Beschleunigung beider Motoren
-				lenken(NXT_PORT_B, -3, v+5);	//Korrektur am rechten Motor noetig
+	if (s>0){				//Fallunterscheidung bez. der Lenkrichtung
+		while (i<=s){				//Auslenkung beider Räder durch gleichmässige
+				lenken(NXT_PORT_C, 2, v);				//Beschleunigung beider Motoren.
+				lenken(NXT_PORT_B, -3, v+5);				//Korrektur am rechten Motor noetig.
 				i=i+2;
 		}
 	}
 	else{
 		while (i>=s){
-				lenken(NXT_PORT_C, -2, v);		//wie oben, nur andere Richtung
+				lenken(NXT_PORT_C, -2, v);				//wie oben, nur die andere Richtung
 				lenken(NXT_PORT_B, 3, v+5);
 				i=i-2;
 		}
 	}
-	stop();										//Ende des Lenkvorgangs
+	stop();				//Ende des Lenkvorgangs
 }
 
 void anzeige(int x[]){
-	/*
-	 * Funktion übernimmt den globalen Array (kreuzung) und
-	 * zeigt die Eigenschaft des Knotens am Display an
-	 */
-
-	int a=x[0]*100+x[1]*10+x[2];		//Array wird zu einem int umgeformt, damit man es im Switch benutzen kann
+	/* Funktion übernimmt den globalen Array (kreuzung) und
+	 * zeigt die Eigenschaft des Knotens am Display an*/
+	int a=x[0]*100+x[1]*10+x[2];				//Array wird zu einem Integer umgeformt, damit man es im Switch benutzen kann
 
 	switch(a) {
 		case 0: ecrobot_status_monitor("Sackgasse"); break;					//case Szenarien zur Displayanzeige
@@ -108,35 +92,32 @@ void anzeige(int x[]){
 		case 110: ecrobot_status_monitor("LINKS RECHTS          "); break;
 		case 111: ecrobot_status_monitor("LINKS RECHTS GERADEAUS"); break;
 	}
-
 }
 
 void kreuzungerkennen(int lenken_v){
-	/*
-	 * Funktion zum Drehen am Knoten, dabei werden die moeglichen Richtungen in Array (kreuzung) gespeichert
-	 * uebergeben wird die Lenkgeschwindigkeit (lenken_v)
-	 */
-	kreuzung[0]=kreuzung[1]=kreuzung[2]=0;		//Nullsetzen aller Array-Werte
+	/* Funktion zum Drehen am Knoten, dabei werden die moeglichen Richtungen in Array (kreuzung) gespeichert
+	 * uebergeben wird die Lenkgeschwindigkeit (lenken_v) */
+	kreuzung[0]=kreuzung[1]=kreuzung[2]=0;				//Nullsetzen aller Array-Werte
 
-	ecrobot_set_light_sensor_active(NXT_PORT_S4);	//Lichtsensor initiallisieren
+	ecrobot_set_light_sensor_active(NXT_PORT_S4);		//Lichtsensor initiallisieren
 
-	int x=190, s=0, a=ecrobot_get_light_sensor(NXT_PORT_S4);//x ist die Strecke der abgetasteten Drehung
-															//250 = eine Umdrehung
+	int x=190, s=0, a=ecrobot_get_light_sensor(NXT_PORT_S4);	//x ist die Strecke der abgetasteten Drehung
+																//250 = eine Umdrehung
 	while(s<x){
 		richtiglenken(2, lenken_v);				//gedreht wird in 2-er Schritten
 		s=s+2;									//zurueckgelegte Schritte werden in s gespeichert
 
 		a=ecrobot_get_light_sensor(NXT_PORT_S4);
 		if(a>lichtgrenze){
-			if((s >= 0 && s<= x/8) || (s >= x-x/8)){	//Schwarte Linie am Anfang der Drehug oder am Ende
-				kreuzung[2]=1;							//entspicht Weg geradeaus vorhanden
+			if((s >= 0 && s<= x/8) || (s >= x-x/8)){	//Schwarze Linie am Anfang der Drehung oder am Ende
+				kreuzung[2]=1;							//entspicht, das ein Weg geradeaus vorhanden ist
 														//wird an der letzten Position im Array gespeichert
 			}
 			if(s >= x/4-x/8 && s<=x/4+x/8 ){			//Schwarz bei einem Viertel der Umdrehung = rechts
 				kreuzung[1]=1;							//gespeichert an zweiter Stelle im Array
 			}
-			if(s >=3*x/4-x/8 && s<=3*x/4+x/8 ){		//nach 3/4 der Umdrehung = links
-				kreuzung[0]=1;							//an erster Stelle
+			if(s >=3*x/4-x/8 && s<=3*x/4+x/8 ){			//nach 3/4 der Umdrehung = links
+				kreuzung[0]=1;							//an erster Stelle im Array gespeichert
 			}
 		}
 	}
@@ -158,6 +139,7 @@ void ecrobot_device_terminate(void) {
 
 void kalibrierung(){
 	ecrobot_status_monitor("Kalibrierung");
+	float temp;
 	lichtgrenze=Richtung=0;
 	systick_wait_ms(2000);
 	ecrobot_set_light_sensor_active(NXT_PORT_S4);		//Lichtsensor initiallisieren
@@ -165,46 +147,39 @@ void kalibrierung(){
 	richtiglenken(20,30);
 	int b=ecrobot_get_light_sensor(NXT_PORT_S4);
 	richtiglenken(-20,30);
-	lichtgrenze=((a+2*b)/3);
+	temp=((1*a+2*b)/3);
+	lichtgrenze=temp+0.5;
 	ecrobot_status_monitor("Ich bin bereit");
 }
 
 void orientierung(int lenken_v){
-	/*
-	 * Roboter wird an der letzten Linie ausgerichtet
+	/* Roboter wird an der letzten Linie ausgerichtet
 	 * bzw. ruzueckgedreht nach der letzten Pfadsuche
-	 * uebergeben wird die Lenkgeschwindigkeit (leneken_v)
-	 */
+	 * uebergeben wird die Lenkgeschwindigkeit (leneken_v) */
 	int b=0;
 	while(b<18){							//Gesucht wird um 20LE nach recht und 40LE nach links
 		richtiglenken(2, lenken_v);			//Um zur Ursprungsfunktion zu gelangen, wird um 20LE
-		b=b+2;								//wieder nach rechts gedreht
+		b=b+2;								//wieder nach rechts gedreht.
 	}
 }
 
 void fahren(int v){
-	/*
-	 *Funktion zum Vorfahren zur ungefairen Mitte des Knotens
-	 */
+	/* Funktion zum Vorfahren zur ungefähren Mitte des Knotens. */
 	int a=0;
 	nxt_motor_set_count(NXT_PORT_B, 0);
 	while(a<190){
-		nxt_motor_set_speed(NXT_PORT_C, v, 1);		//Motor am Port_B faehrt langsamer als der am Port_A
-		nxt_motor_set_speed(NXT_PORT_B, v, 1);		//dies wird hier mit v+3 korrigiert
+		nxt_motor_set_speed(NXT_PORT_C, v, 1);
+		nxt_motor_set_speed(NXT_PORT_B, v, 1);
 		a=nxt_motor_get_count(NXT_PORT_B);
 	}
-	//systick_wait_ms(1000);						//nach 1 sekunde fahren ist man ungefair in der Mitte des Knoten
+	//systick_wait_ms(1000);						//nach einer Sekunde Fahren ist man ungefähr in der Mitte des Knotens
 	stop();
 }
 
 
-int folgen(int v, int lenken_v){
-	/*
-	 * Funktion zum Folgen der schwarzen Linie, aendern der Knoten-variable und
-	 * erkennen eines Gegenstandes
-	 * uebergeben werden die Fahrgeschwindigkeit (v) und die Lenkgeschwindigkeit (lenk_v)
-	 */
-	int gegenstand=0;
+void folgen(int v, int lenken_v){
+	/* Funktion zum Folgen der schwarzen Linie, aendern der Knotenvariable und erkennen eines Gegenstandes.
+	 * Übergeben werden die Fahrgeschwindigkeit (v) und die Lenkgeschwindigkeit (lenk_v) */
 	int a= ecrobot_get_light_sensor(NXT_PORT_S4);		//Lichtwert auslesen
 	U8 touch1=0, touch2=0;
 
@@ -224,7 +199,7 @@ int folgen(int v, int lenken_v){
 			stop();
 			systick_wait_ms(10000);	//warte 10s auf entnahme des Gegenstandes
 
-			gegenstand=1;								//Speicherung des Gegenstandes
+			TokenZ++;								//Speicherung des Gegenstandes
 			touch1 = touch2 = 0;
 		}
 		stop();											//bei Verlust der Linie oder Gegenstand stoppen
@@ -240,7 +215,7 @@ int folgen(int v, int lenken_v){
 						stop();
 						systick_wait_ms(10000);	//warte 10s auf entnahme des Gegenstandes
 
-						gegenstand=1;								//Speicherung des Gegenstandes
+						TokenZ++;								//Speicherung des Gegenstandes
 						touch1 = touch2 = 0;
 					}
 			b=b+2;
@@ -256,7 +231,7 @@ int folgen(int v, int lenken_v){
 				stop();
 				systick_wait_ms(10000);	//warte 10s auf entnahme des Gegenstandes
 
-				gegenstand=1;								//Speicherung des Gegenstandes
+				TokenZ++;								//Speicherung des Gegenstandes
 				touch1 = touch2 = 0;
 			}
 			b=b+2;
@@ -271,7 +246,6 @@ int folgen(int v, int lenken_v){
 	}
 	orientierung(lenken_v);				//bei erreichtem Knoten wird der Roboter gerade gestellt und
 	fahren(35);							//ungefair zur Mitte des Knotens bewegt
-	return gegenstand;
 }
 
 void fahre_richtung(int r){
@@ -341,7 +315,7 @@ int schongesucht(int Richtungx, int Richtungy){
 return 0;
 }
 
-int Robot_Move(int x, int y){
+void Robot_Move(int x, int y){
 	knoten=0;
 	if(y==1){
 		switch(Richtung){
@@ -360,7 +334,6 @@ int Robot_Move(int x, int y){
 		}
 	}
 	if(x==1){
-		//ecrobot_sound_tone(220, 1000, 20);
 		switch(Richtung){
 		case 1: break;
 		case 0: fahre_richtung(1); break;
@@ -369,7 +342,6 @@ int Robot_Move(int x, int y){
 			}
 	}
 	if(x==-1){
-		//ecrobot_sound_tone(220, 1000, 20);
 		switch(Richtung){
 		case 3: break;
 		case 2: fahre_richtung(1); break;
@@ -377,18 +349,14 @@ int Robot_Move(int x, int y){
 		case 0: fahre_richtung(0); break;
 		}
 	}
-	int a=folgen(70,20);
-	return a;
+	folgen(70,20);
 }
 
 void gehen(int Richtungx, int Richtungy){
 	/*Funktion für das Gehen auf neuen Wegen, wobei nur x oder y um Eins erhöht oder um Eins erniedrigt
 	  wird, da es keine Diagonalen gibt.*/
 	// Richtungx (Richtungy) meint dabei den Schritt, der in x-Richtung (y-Richtung) gegeangen wird.*/
-	int a=Robot_Move(Richtungx,Richtungy);
-	if(a==1){
-		TokenZ++;
-	}
+	Robot_Move(Richtungx,Richtungy);
 	/*Schritt wird ausgeführt und überprüft, ob Token gefunden wird. Wird ein Token gefunden, wird
 	  die Anzahl der gefundenen Token um Eins erhöht. */							//ein Weg wurde benutzt.
 	StreckeZ++; 								//Zähler Strecke erhöhen
@@ -397,8 +365,6 @@ void gehen(int Richtungx, int Richtungy){
 	pa[paZ].x=pa[paZ-1].x+Richtungx;
 	Strecke[StreckeZ].x=pa[paZ].x; 					//Speicherung des aktuellen Standorts für den Rückweg
 	Strecke[StreckeZ].y=pa[paZ].y;
-
-
 	if (schongesucht(0,0)==1 && controle(0,0)==0){
 		gesKnoten[gefundeneKnotenZ].x=0;
 		gesKnoten[gefundeneKnotenZ].y=0;
@@ -407,7 +373,6 @@ void gehen(int Richtungx, int Richtungy){
 }
 
 int Robot_GetIntersections(void){
-
 	int temp[4];
 	int a =0+Richtung;
 	if(a>3)
@@ -431,88 +396,11 @@ int Robot_GetIntersections(void){
 	temp[c]=1;
 
 	return temp[0]*16+temp[2]*32+temp[3]*64+temp[1]*128;
-	}
-
-int ruecksuche(void){
-	int f;
-	int g;
-	int Nummer=0;
-	for(f=StreckeZ; f>=0; f--){
-		for(g=gefundeneKnotenZ; g>=0; g--){
-			if(Strecke[f].x+1==gesKnoten[g].x && hasEast(Strecke[f].Gabelung)==1){
-				Nummer=f;
-				goto Fin;
-			}
-			if(Strecke[f].x-1==gesKnoten[g].x && hasWest(Strecke[f].Gabelung)==1){
-				Nummer=f;
-				goto Fin;
-			}
-			if(Strecke[f].y+1==gesKnoten[g].y && hasNorth(Strecke[f].Gabelung)==1){
-				Nummer=f;
-				goto Fin;
-			}
-			if(Strecke[f].x+1==gesKnoten[g].x && hasEast(Strecke[f].Gabelung)==1){
-				Nummer=f;
-				goto Fin;
-			}
-		}
-	}
-	Fin: return Nummer;
-}
-
-void rueckgehen(int Num){
-	int i;
-	while(StreckeZ>=Num){
-		int deltax=0;
-		int deltay=0;
-		/*Solange er nicht wieder am Start ist (Strecke[s=0] ist dabei der Startpunkt), läuft der Roboter
-		rückwärts und schaut nach Abkürzungen durch bekannte Punkte in der direkten Umgebung*/
-		for(i=0;i<StreckeZ;i++){
-			if ((Strecke[StreckeZ].x+1==Strecke[i].x) && (Strecke[StreckeZ].y==Strecke[i].y) && (hasEast(Strecke[StreckeZ].Gabelung)==1)) {
-				//Kontrolle ob ein Punkt in östlicher Richtung schon befahren wurde und ob eine Verbindung zu ihm existiert.
-				deltax=Strecke[i].x-Strecke[StreckeZ].x;
-				Robot_Move(deltax,deltay);
-				paZ++;
-				pa[paZ].x=Strecke[StreckeZ-1].x;
-				pa[paZ].y=Strecke[StreckeZ-1].y;
-				StreckeZ=i;
-				break;}
-			else if ((Strecke[StreckeZ].x-1==Strecke[i].x) && (Strecke[StreckeZ].y==Strecke[i].y) && (hasWest(Strecke[StreckeZ].Gabelung)==1)) {
-				//Analog für Westen
-				deltax=Strecke[i].x-Strecke[StreckeZ].x;
-				Robot_Move(deltax,deltay);
-				paZ++;
-				pa[paZ].x=Strecke[StreckeZ-1].x;
-				pa[paZ].y=Strecke[StreckeZ-1].y;
-				StreckeZ=i;
-				break;}
-			else if ((Strecke[StreckeZ].y+1==Strecke[i].y) && (Strecke[StreckeZ].x==Strecke[i].x) && (hasNorth(Strecke[StreckeZ].Gabelung)==1)) {
-				//Analog für Norden
-				deltay=Strecke[i].y-Strecke[StreckeZ].y;
-				Robot_Move(deltax,deltay);
-				paZ++;
-				pa[paZ].x=Strecke[StreckeZ-1].x;
-				pa[paZ].y=Strecke[StreckeZ-1].y;
-				StreckeZ=i;
-				break;}
-			else if ((Strecke[StreckeZ].y-1==Strecke[i].y) && (Strecke[StreckeZ].x==Strecke[i].x)  && (hasSouth(Strecke[StreckeZ].Gabelung)==1)) {
-				//Analog für Süden
-				deltay=Strecke[i].y-Strecke[StreckeZ].y;
-				Robot_Move(deltax,deltay);
-				paZ++;
-				pa[paZ].x=Strecke[StreckeZ-1].x;
-				pa[paZ].y=Strecke[StreckeZ-1].y;
-				StreckeZ=i;
-				break;}
-		}
-	}
-
 }
 
 void suchen(){
 	/* Die Funktion suchen beschäftigt sich mit der Suche nach Gegenständen im Labyrinth.
-	   Werden dabei keine unbesuchten Kanten gefunden, geht der Roboter einen Schritt zurück. */
-	TokenZ=0; 									//Gefundene Gegenstände vor dem Suchlauf auf Null setzen
+	   Werden dabei keine unbesuchten Kanten gefunden, geht der Roboter einen Schritt zurück. */									//Gefundene Gegenstände vor dem Suchlauf auf Null setzen
 	AgesPunkte=0;									// Startwert besuchter Kreuzungen
 	gefundeneKnotenZ=0;
 	while(TokenZ<3){
@@ -578,8 +466,7 @@ void suchen(){
 			else if(hasSouth(pa[paZ].Gabelung)!=0 && controle(0,-1)==0) gehen(0,-1); 	//Süden
 			else if(hasWest(pa[paZ].Gabelung)!=0 && controle(-1,0)==0) gehen(-1,0); 	//Westen
 			else{
-				//int r=ruecksuche();
-				//rueckgehen(r);
+
 			/*Es wird keine neue Richtung gefunden --> dann geht der Roboter einen Schritt zurück und
 			  Position des Roboters wird aktualliesiert.*/
 				Robot_Move(Strecke[StreckeZ-1].x-Strecke[StreckeZ].x,Strecke[StreckeZ-1].y-Strecke[StreckeZ].y);
