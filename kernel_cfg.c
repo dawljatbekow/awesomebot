@@ -1,6 +1,6 @@
 /*
  *  kernel_cfg.c
- *  Mon Mar 16 12:16:42 2015
+ *  Thu Mar 26 14:52:45 2015
  *  SG Version 2.10
  *  sg ./main.oil -os=ECC2 -I/home/robo/nxtOSEK/nxtOSEK/ecrobot/../toppers_osek/sg/impl_oil -template=/home/robo/nxtOSEK/nxtOSEK/ecrobot/../toppers_osek/sg/lego_nxt.sgt
  */

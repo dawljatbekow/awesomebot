@@ -24,10 +24,9 @@ struct Koordinaten gesKnoten[49];				//Speicher alle nicht besuchte Punkte Punkt
 int paZ; 				//Zähler für pa
 int StreckeZ;				//Zähler für Strecke
 int TokenZ=0;				//Zähler für Token(Gegenstände)
-int gefundeneKnotenZ;
-int AWege;				//Zähler für gefundene unbenutzte Wege
+int gefundeneKnotenZ;		//Zähler für gefundene unbenutzte Wege
 int AgesPunkte;
-
+int nichtbefahren;
 
 void stop(){
 	/* Funktion zum Stoppen der Motoren  */
@@ -98,7 +97,9 @@ void kreuzungerkennen(int lenken_v){
 	/* Funktion zum Drehen am Knoten, dabei werden die moeglichen Richtungen in Array (kreuzung) gespeichert
 	 * uebergeben wird die Lenkgeschwindigkeit (lenken_v) */
 	kreuzung[0]=kreuzung[1]=kreuzung[2]=0;				//Nullsetzen aller Array-Werte
-
+	int counterG=0;
+	int counterL=0;
+	int counterR=0;
 	ecrobot_set_light_sensor_active(NXT_PORT_S4);		//Lichtsensor initiallisieren
 
 	int x=190, s=0, a=ecrobot_get_light_sensor(NXT_PORT_S4);	//x ist die Strecke der abgetasteten Drehung
@@ -108,16 +109,26 @@ void kreuzungerkennen(int lenken_v){
 		s=s+2;									//zurueckgelegte Schritte werden in s gespeichert
 
 		a=ecrobot_get_light_sensor(NXT_PORT_S4);
-		if(a>lichtgrenze){
+		if(a>500){
 			if((s >= 0 && s<= x/8) || (s >= x-x/8)){	//Schwarze Linie am Anfang der Drehung oder am Ende
-				kreuzung[2]=1;							//entspicht, das ein Weg geradeaus vorhanden ist
-														//wird an der letzten Position im Array gespeichert
+				counterG++;
+				if(counterG==2){
+					kreuzung[2]=1;							//entspicht, das ein Weg geradeaus vorhanden ist
+				}										//wird an der letzten Position im Array gespeichert
 			}
 			if(s >= x/4-x/8 && s<=x/4+x/8 ){			//Schwarz bei einem Viertel der Umdrehung = rechts
-				kreuzung[1]=1;							//gespeichert an zweiter Stelle im Array
+				counterR++;
+				if(counterR==2){
+					kreuzung[1]=1;
+				}
+											//gespeichert an zweiter Stelle im Array
 			}
 			if(s >=3*x/4-x/8 && s<=3*x/4+x/8 ){			//nach 3/4 der Umdrehung = links
-				kreuzung[0]=1;							//an erster Stelle im Array gespeichert
+				counterL++;
+				if(counterL==2){
+					kreuzung[0]=1;
+				}
+										//an erster Stelle im Array gespeichert
 			}
 		}
 	}
@@ -139,16 +150,30 @@ void ecrobot_device_terminate(void) {
 
 void kalibrierung(){
 	ecrobot_status_monitor("Kalibrierung");
-	float temp;											//Zur genauen Lichtwertberechnung wird der float Typ verwendet
+	int temp;											//Zur genauen Lichtwertberechnung wird der float Typ verwendet
 	lichtgrenze=0;
 	systick_wait_ms(2000);
 	ecrobot_set_light_sensor_active(NXT_PORT_S4);		//Lichtsensor initiallisieren
-	int a=ecrobot_get_light_sensor(NXT_PORT_S4);		//Lichtwert des schwarzen Streifens wird erfasst
+	int a1=ecrobot_get_light_sensor(NXT_PORT_S4);		//Lichtwert des schwarzen Streifens wird erfasst
 	richtiglenken(20,30);								//Drehung von der Linie weg
-	int b=ecrobot_get_light_sensor(NXT_PORT_S4);		//Lichtwert der Unterlage
+	systick_wait_ms(100);
+	int b1=ecrobot_get_light_sensor(NXT_PORT_S4);		//Lichtwert der Unterlage
 	richtiglenken(-20,30);								//Anfangsposition
-	temp=((1*a+2*b)/3);									//Berechnung der Grenze mit gewichtung 2 zu 1
-	lichtgrenze=temp+0.5;
+	systick_wait_ms(100);
+	int a2=ecrobot_get_light_sensor(NXT_PORT_S4);
+	richtiglenken(-20,30);
+	systick_wait_ms(100);
+	int b2=ecrobot_get_light_sensor(NXT_PORT_S4);		//Lichtwert der Unterlage
+	richtiglenken(20,30);
+	systick_wait_ms(100);
+	int a3=ecrobot_get_light_sensor(NXT_PORT_S4);
+	if(a1<a2)a2=a1;
+	if(a2<a3)a3=a2;
+	int a=a3;
+	if(b1>b2)b2=b1;
+	int b=b2;
+	temp=((a+b)/2);									//Berechnung der Grenze mit gewichtung 2 zu 1
+	lichtgrenze=temp;
 	ecrobot_status_monitor("Ich bin bereit");
 }
 
@@ -194,7 +219,7 @@ void folgen(int v, int lenken_v){
 		}
 		stop();
 		if(touch1>0 || touch2>0){						//Routine nach Erkennung eines Gegenstandes
-			ecrobot_sound_tone(220, 1000, 20);			//Ausgabe eines vorgeschriebenen Tons
+			ecrobot_sound_tone(220, 1000, 70);			//Ausgabe eines vorgeschriebenen Tons
 			stop();
 			systick_wait_ms(10000);				//warte 10s auf Entnahme des Gegenstandes
 			TokenZ++;						//Hochzählen des Token Zählers
@@ -209,7 +234,7 @@ void folgen(int v, int lenken_v){
 			richtiglenken(2, lenken_v);
 			a = ecrobot_get_light_sensor(NXT_PORT_S4);
 			if(touch1>0 || touch2>0){									//Routine nach Erkennung eines Gegenstandes
-						ecrobot_sound_tone(220, 1000, 20);			//Ausgabe eines vorgeschriebenen Tons
+						ecrobot_sound_tone(220, 1000, 70);			//Ausgabe eines vorgeschriebenen Tons
 						stop();
 						systick_wait_ms(10000);			//warte 10s auf entnahme des Gegenstandes
 						TokenZ++;
@@ -224,7 +249,7 @@ void folgen(int v, int lenken_v){
 			richtiglenken(-2, lenken_v);
 			a = ecrobot_get_light_sensor(NXT_PORT_S4);
 			if(touch1>0 || touch2>0){									//Routine nach Erkennung eines Gegenstandes
-				ecrobot_sound_tone(220, 1000, 20);			//Ausgabe eines vorgeschriebenen Tons
+				ecrobot_sound_tone(220, 1000, 70);			//Ausgabe eines vorgeschriebenen Tons
 				stop();
 				systick_wait_ms(10000);	//warte 10s auf entnahme des Gegenstandes
 
@@ -238,15 +263,13 @@ void folgen(int v, int lenken_v){
 			knoten=1;
 		}
 	}
-	orientierung(lenken_v);				//bei erreichtem Knoten wird der Roboter gerade gestellt und
+	orientierung(lenken_v);			//bei erreichtem Knoten wird der Roboter gerade gestellt und
 	fahren(35);						//ungefair zur Mitte des Knotens bewegt
 }
 
 void fahre_richtung(int r){
-	/*
-	 * Funktion zum Drehen in eine Richtung vom Mittelpunkt eines Knotens
-	 * uebergeben wird die Richtung (r)
-	 */
+	/* Funktion zum Drehen in eine Richtung vom Mittelpunkt eines Knotens.
+	 * Übergeben wird die Richtung (r) */
 
 	switch(r){									//Entscheidung zwischen den moeglichen Richtungen
 	case 0:
@@ -343,7 +366,7 @@ void Robot_Move(int x, int y){
 		case 0: fahre_richtung(0); break;
 		}
 	}
-	folgen(70,20);
+	folgen(70,25);
 }
 
 void gehen(int Richtungx, int Richtungy){
@@ -352,8 +375,8 @@ void gehen(int Richtungx, int Richtungy){
 	// Richtungx (Richtungy) meint dabei den Schritt, der in x-Richtung (y-Richtung) gegeangen wird.*/
 	Robot_Move(Richtungx,Richtungy);
 	/*Schritt wird ausgeführt und überprüft, ob Token gefunden wird. Wird ein Token gefunden, wird
-	  die Anzahl der gefundenen Token um Eins erhöht. */							//ein Weg wurde benutzt.
-	StreckeZ++; 								//Zähler Strecke erhöhen
+	  die Anzahl der gefundenen Token um Eins erhöht. */
+	StreckeZ++; 									//Zähler Strecke erhöhen
 	paZ++;
 	pa[paZ].y=pa[paZ-1].y+Richtungy; 				//neuer Standort
 	pa[paZ].x=pa[paZ-1].x+Richtungx;
@@ -477,7 +500,6 @@ void suchen(){
 	}
 }
 
-
 void rueckkehr(void){
 	/* Die Funktion rueckkehr gibt dem Roboter die Möglichkeit von seiner momentanen Position aus
 	   zu seinem Startpunkt zurück zu finden. Dabei nimmt er den in Strecke gespeicherten Weg und zieht
@@ -531,20 +553,20 @@ TASK(OSEK_Main_Task) {
 	Richtung=0;
 	paZ=0;
 	StreckeZ=0;
-	pa[paZ].x=0;																//Startposition Roboter
+	pa[paZ].x=0;										//Startposition Roboter
 	pa[paZ].y=0;
-	Strecke[StreckeZ].x=pa[paZ].x;													//Startpostion in Strecke eintragen
+	Strecke[StreckeZ].x=pa[paZ].x;						//Startpostion in Strecke eintragen
 	Strecke[StreckeZ].y=pa[paZ].y;
 	Strecke[StreckeZ].Gabelung=16;
 	StreckeZ++;
 	paZ++;
 	Robot_Move(0,1);
-	pa[paZ].x=0;																//Startposition Roboter
+	pa[paZ].x=0;										//Startposition Roboter
 	pa[paZ].y=1;
-	Strecke[StreckeZ].x=pa[paZ].x;													//Startpostion in Strecke eintragen
+	Strecke[StreckeZ].x=pa[paZ].x; 						//Startpostion in Strecke eintragen
 	Strecke[StreckeZ].y=pa[paZ].y;
-	suchen();															//Token-Suche aufrufen
-	rueckkehr();														//Rückkehr zum Start aufrufen
-	ecrobot_sound_tone(220, 1000, 20);
+	suchen();											//Token-Suche aufrufen
+	rueckkehr();										//Rückkehr zum Start aufrufen
+	ecrobot_sound_tone(220, 1000, 70);
 	systick_wait_ms(10000);
 }
